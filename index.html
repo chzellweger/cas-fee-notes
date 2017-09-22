@@ -11,50 +11,117 @@
 
 <body>
 
-    <header>
-      <a href="">Create new note</a>
-      <select name="css-style">
+  <header>
+    <a href="add.html">Create new note</a>
+    <select name="css-style">
         <option>Day Mode</option>
         <option>Night mode</option>
         <option>Random mode</option>
       </select>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><label><input type="radio" name="sorting" value="finish">by finish date</label>
-            </li>
-            <li><label><input type="radio" name="sorting" value="created">by created date</label>
-            </li>
-            <li><label><input type="radio" name="sorting" value="importance">by importance</label>
-            </li>
-          </ul>
-          <label><input type="checkbox">show finished</label>
-    </nav>
+  </header>
+
+  <nav>
+    <ul>
+      <li>
+        <input id="finish-date" type="radio" name="sorting" value="finish">
+        <label for="finish-date">by finish date</label>
+      </li>
+      <li>
+        <input id="created" type="radio" name="sorting" value="created">
+        <label for="created">by created date</label>
+      </li>
+      <li>
+        <input type="radio" name="sorting" value="importance">
+        <label id="sorting">by importance</label>
+      </li>
+    </ul>
+    <label><input type="checkbox">show finished</label>
+  </nav>
 
 
-    <main>
-      <article>
-        <div>
-          <label><input type="checkbox" name="finished">Finished</label>
-          <span>Finish by</span>
-        </div>
-        <div>
-          gtImportance: <span>*</span><span>*</span><span>*</span><span>*</span><span>*</span>
-        </div>
-        <div>
-          <details>
-            <summary>Item 1 - Title</summary>
-            <p>Some more info about it</p>
-          </details>
-          <a href="">Edit</a>
-        </div> 
-      </article>
-      <article>Item 2</article>
-      <article>Item 3</article>
-      <article>Item 4</article>
-      <article>Item 5</article>
-    </main>
+  <main>
+    <article>
+      <div>
+        <label><input type="checkbox" name="finished">Finished [Date]</label>
+        <span>Finish by</span>
+      </div>
+      <div>
+        Importance: <span>*</span><span>*</span><span>*</span><span>*</span><span>*</span>
+      </div>
+      <div>
+        <details>
+          <summary>Item 1 - Title</summary>
+          <p>Some more info about it</p>
+        </details>
+        <a href="">Edit</a>
+      </div>
+    </article>
+    <article>
+      <div>
+        <label><input type="checkbox" name="finished">Finished [Date]</label>
+        <span>Finish by</span>
+      </div>
+      <div>
+        Importance: <span>*</span><span>*</span><span>*</span><span>*</span><span>*</span>
+      </div>
+      <div>
+        <details>
+          <summary>Item 1 - Title</summary>
+          <p>Some more info about it</p>
+        </details>
+        <a href="">Edit</a>
+      </div>
+    </article>
+    <article>
+      <div>
+        <label><input type="checkbox" name="finished">Finished [Date]</label>
+        <span>Finish by</span>
+      </div>
+      <div>
+        Importance: <span>*</span><span>*</span><span>*</span><span>*</span><span>*</span>
+      </div>
+      <div>
+        <details>
+          <summary>Item 2 - Title</summary>
+          <p>Some more info about it</p>
+        </details>
+        <a href="">Edit</a>
+      </div>
+    </article>
+    <article>
+      <div>
+        <label><input type="checkbox" name="finished">Finished [Date]</label>
+        <span>Finish by</span>
+      </div>
+      <div>
+        Importance: <span>*</span><span>*</span><span>*</span><span>*</span><span>*</span>
+      </div>
+      <div>
+        <details>
+          <summary>Item 3 - Title</summary>
+          <p>Some more info about it</p>
+        </details>
+        <a href="">Edit</a>
+      </div>
+    </article>
+    <article>
+      <div>
+        <input type="checkbox" id="finished" name="finished">
+        <label for="finished">Finished [Date]</label>
+        <span>Finish by</span>
+      </div>
+      <div>
+        Importance: <span>*</span><span>*</span><span>*</span><span>*</span><span>*</span>
+      </div>
+      <div>
+        <details>
+          <summary>Item 4- Title</summary>
+          <p>Some more info about it</p>
+        </details>
+        <a href="">Edit</a>
+      </div>
+    </article>
+  </main>
 
 </body>
 
