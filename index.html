@@ -12,35 +12,43 @@
 <body>
   <div>
     <header>
-      <div>doit.io</div>
-      <div>Don't forget</div>
-    </header>
-    
-      <nav>
-        <div>
-          <select>
+      <h1>doit.io</h1>
+      <p>Don't forget</p>
+      <div>
+          <select name="css-style">
             <option>Day Mode</option>
             <option>Night mode</option>
+            <option>Random mode</option>
           </select>
         </div>
-        <div>
-          <ul>
-            <li>by finish date</li>
-            <li>by created date</li>
-            <li>by importance</li>
-          </ul>
-          <div>
-            <span>toggle finished</span>
-          </div>
-        </div>
-        <div>
+    </header>
+
+    <section>
+      <div>
+        <ul>
+          <li><label><input type="radio" name="sorting" value="finish">by finish date</label>
+          </li>
+          <li><label><input type="radio" name="sorting" value="created">by created date</label>
+          </li>
+          <li><label><input type="radio" name="sorting" value="importance">by importance</label>
+          </li>
+        </ul>
+        <label><input type="checkbox">show completed</label>
+      </div>
+      <a href="">
           <span>+</span>
           <span>Add new item</span>
-        </div>
-      </nav>
+        </a>
+    </section>
 
     <main>
-      <article>Item 1</article>
+      <article>
+        
+        <details>
+          <summary>Title</summary>
+          <p>Some more info about it</p>
+        </details>
+      </article>
       <article>Item 2</article>
       <article>Item 3</article>
       <article>Item 4</article>

@@ -3,22 +3,25 @@
 }
 
 body {
-  max-width: 550px;
+  max-width: 37rem;
   margin: 0 auto;
 }
 
 body > div {
-  margin: 0 10px;
+  margin: 0 0.75rem;
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
 }
 
-header, nav {
+header, section {
   color: #7CC6FE;
   background-color: white;
 }
 
 header {
   height: 100px;
-  padding-bottom: 5px;
+  padding: 2rem 0 4rem 0;
 
   display: flex;
   flex-direction: column;
@@ -26,73 +29,110 @@ header {
   align-items: center;
 }
 
-header > div:first-child {
-  font-size: 3rem;
+header > h1 {
+  font-size: 2.75rem;
   font-weight: bold;
+  margin: auto;
 }
 
-nav {
-  padding-top: 15px;
+header h1, header p {
+  margin: 0 0;
+  padding: 0;
+}
+
+header > div:first-of-type {
+  margin: 1rem 0 0.5rem 0;
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 100%;
   position: -webkit-sticky;
-  
   position: sticky;
   top: 0;
-  left: 4px;
+  z-index: 1;
 }
 
-nav > div:first-child {
-  text-align: center;
-}
-
-nav > div:nth-child(2) {
+section > div:first-child {
+  flex: 0 0 100%;
+  
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+}
+
+section> div:nth-child(2) {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 
   padding: 0 5px;
 }
 
-nav ul {
+section ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-nav li {
-  display: inline;
+section a {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
-main > article {
+main {
+  flex: 0 0 100%;
+}
+
+article {
   background-color: #E1EFE6;  
+
+  display: flex;
+  flex-flow: row;
+  
+  font-size: 0.75rem;
+  overflow: hidden;
 }
 
-nav > div:last-child > span:first-child {
-  font-size: 2rem
+article:hover, article::selection {
+  overflow: visible;
 }
 
-main > article:nth-child(2n) {
-  background-color: #AEB7B3;
+article > div > h1 {
+  font-size: 1rem;
+  align-self: center;
+}
+
+article > div:nth-child(2) {
+  display: flex;
+  align-self: center;
+}
+
+article:nth-child(2n) {
   background-color: #C9FFFF;
 }
 
-article, nav > div:last-child {
+article, section a {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
-  height: 4.5rem;
+  height: 7rem;
   margin: 5px 0;
   
   border-radius: 5px;
+}
 
-  display: flex;
+section > a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
 
-nav > div:first-child {
-  padding: 20px 0;
-}
-
-nav > div:last-child {
+  background-color: white;
   box-sizing: border-box;
   border: 1px dashed black;
   border-radius: 20px;
