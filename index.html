@@ -10,56 +10,52 @@
 </head>
 
 <body>
-  <div>
-    <header>
-      <h1>doit.io</h1>
-      <p>Don't forget</p>
-      <div>
-          <select name="css-style">
-            <option>Day Mode</option>
-            <option>Night mode</option>
-            <option>Random mode</option>
-          </select>
-        </div>
-    </header>
 
-    <section>
-      <div>
+    <header>
+      <a href="">Create new note</a>
+      <select name="css-style">
+        <option>Day Mode</option>
+        <option>Night mode</option>
+        <option>Random mode</option>
+      </select>
+    </header>
+    
+    <nav>
         <ul>
-          <li><label><input type="radio" name="sorting" value="finish">by finish date</label>
-          </li>
-          <li><label><input type="radio" name="sorting" value="created">by created date</label>
-          </li>
-          <li><label><input type="radio" name="sorting" value="importance">by importance</label>
-          </li>
-        </ul>
-        <label><input type="checkbox">show completed</label>
-      </div>
-      <a href="">
-          <span>+</span>
-          <span>Add new item</span>
-        </a>
-    </section>
+            <li><label><input type="radio" name="sorting" value="finish">by finish date</label>
+            </li>
+            <li><label><input type="radio" name="sorting" value="created">by created date</label>
+            </li>
+            <li><label><input type="radio" name="sorting" value="importance">by importance</label>
+            </li>
+          </ul>
+          <label><input type="checkbox">show finished</label>
+    </nav>
+
 
     <main>
       <article>
-        
-        <details>
-          <summary>Title</summary>
-          <p>Some more info about it</p>
-        </details>
+        <div>
+          <label><input type="checkbox" name="finished">Finished</label>
+          <span>Finish by</span>
+        </div>
+        <div>
+          gtImportance: <span>*</span><span>*</span><span>*</span><span>*</span><span>*</span>
+        </div>
+        <div>
+          <details>
+            <summary>Item 1 - Title</summary>
+            <p>Some more info about it</p>
+          </details>
+          <a href="">Edit</a>
+        </div> 
       </article>
       <article>Item 2</article>
       <article>Item 3</article>
       <article>Item 4</article>
       <article>Item 5</article>
-      <article>Item 6</article>
-      <article>Item 7</article>
-      <article>Item 8</article>
-      <article>Item 9</article>
-      <article>Item 10</article>
     </main>
-  </div>
+
 </body>
 
 </html>
