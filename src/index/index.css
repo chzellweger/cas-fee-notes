@@ -41,6 +41,7 @@ body {
 
 input {
   display: none;
+  margin: 0;
 }
 
 input[type="radio"]:checked + label,
@@ -51,7 +52,7 @@ input[type="checkbox"]:checked + label {
 
 header {
   margin-top: 5rem;
-  margin-bottom: 10px;
+  margin-bottom: 2.5rem;
 }
 
 a, header > div, nav label {
@@ -73,11 +74,13 @@ a, header > div, nav label {
 select {
   border: none;
   
+  width: 100%; 
+
   background-color: transparent;
   color: #2DB4D4;
   font-weight: bold;
   font-size: 1.2rem;
-
+  
   outline: 0;
 }
 
@@ -85,12 +88,40 @@ header, nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-end;
+
+}
+
+nav {
+  margin-bottom: 5rem;
 }
 
 nav ul {
   list-style: none;
+  padding-left: 0;
+  margin: 0;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+nav li label {
+  display: inline-block;
+}
+
+nav li:first-child label {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+nav li:last-child label {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+nav li:nth-child(2) label {
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
 }
 
 article {
