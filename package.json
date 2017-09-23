@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/chzellweger/cas-fee-notes/issues"
   },
-  "homepage": "https://github.com/chzellweger/cas-fee-notes#readme"
+  "homepage": "https://github.com/chzellweger/cas-fee-notes#readme",
+  "devDependencies": {
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2"
+  }
 }
