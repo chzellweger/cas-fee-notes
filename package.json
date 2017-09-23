@@ -1,0 +1,19 @@
+{
+  "name": "cas-fee-notes",
+  "version": "0.0.1",
+  "description": "note app for cas-fee",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chzellweger/cas-fee-notes.git"
+  },
+  "author": "Christian Zellweger <chzellweger@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chzellweger/cas-fee-notes/issues"
+  },
+  "homepage": "https://github.com/chzellweger/cas-fee-notes#readme"
+}
