@@ -10,39 +10,50 @@
 </head>
 
 <body>
-
+  <div>
   <header>
-    <a href="add.html">Create new note</a>
+    <a href="add.html">CREATE NEW NOTE</a>
+    <div>
     <select name="css-style">
-        <option>Day Mode</option>
-        <option>Night mode</option>
-        <option>Random mode</option>
+        <option>DAY MODE</option>
+        <option>NIGHT MODE</option>
       </select>
+    </div>
   </header>
 
   <nav>
     <ul>
       <li>
         <input id="finish-date" type="radio" name="sorting" value="finish">
-        <label for="finish-date">by finish date</label>
+        <label for="finish-date">
+          <span>by finish date</span>
+        </label>
       </li>
       <li>
         <input id="created" type="radio" name="sorting" value="created">
-        <label for="created">by created date</label>
+        <label for="created">
+        <span>by created date</span>
+      </label>
       </li>
       <li>
-        <input type="radio" name="sorting" value="importance">
-        <label id="sorting">by importance</label>
+        <input id="sorting" type="radio"  name="sorting" value="importance">
+        <label for="sorting">
+          <span>by importance</span>
+        </label>
       </li>
     </ul>
-    <label><input type="checkbox">show finished</label>
+    <div>
+      <input id="toggle-finished" type="checkbox">
+      <label for="toggle-finished"><span>Toggle finished</span></label>
+    </div>
   </nav>
-
+  </div>
 
   <main>
     <article>
       <div>
-        <label><input type="checkbox" name="finished">Finished [Date]</label>
+          <input id="element-1" type="checkbox">
+          <label for="element-1"><span>Finished [date]</span></label>
         <span>Finish by</span>
       </div>
       <div>
@@ -53,12 +64,13 @@
           <summary>Item 1 - Title</summary>
           <p>Some more info about it</p>
         </details>
-        <a href="">Edit</a>
       </div>
+      <a href="">EDIT</a>
     </article>
     <article>
       <div>
-        <label><input type="checkbox" name="finished">Finished [Date]</label>
+          <input id="element-2" type="checkbox">
+          <label for="element-2"><span>Finished [date]</span></label>
         <span>Finish by</span>
       </div>
       <div>
@@ -69,12 +81,13 @@
           <summary>Item 1 - Title</summary>
           <p>Some more info about it</p>
         </details>
-        <a href="">Edit</a>
       </div>
+      <a href="">EDIT</a>
     </article>
     <article>
       <div>
-        <label><input type="checkbox" name="finished">Finished [Date]</label>
+          <input id="element-3" type="checkbox">
+          <label for="element-3"><span>Finished [date]</span></label>
         <span>Finish by</span>
       </div>
       <div>
@@ -85,12 +98,13 @@
           <summary>Item 2 - Title</summary>
           <p>Some more info about it</p>
         </details>
-        <a href="">Edit</a>
       </div>
+      <a href="">EDIT</a>
     </article>
     <article>
       <div>
-        <label><input type="checkbox" name="finished">Finished [Date]</label>
+          <input id="element-4" type="checkbox">
+          <label for="element-4"><span>Finished [date]</span></label>
         <span>Finish by</span>
       </div>
       <div>
@@ -101,13 +115,13 @@
           <summary>Item 3 - Title</summary>
           <p>Some more info about it</p>
         </details>
-        <a href="">Edit</a>
       </div>
+      <a href="">EDIT</a>
     </article>
     <article>
       <div>
-        <input type="checkbox" id="finished" name="finished">
-        <label for="finished">Finished [Date]</label>
+          <input id="element-5" type="checkbox">
+          <label for="element-5"><span>Finished <span>[date]</span> </span></label>
         <span>Finish by</span>
       </div>
       <div>
@@ -118,8 +132,8 @@
           <summary>Item 4- Title</summary>
           <p>Some more info about it</p>
         </details>
-        <a href="">Edit</a>
       </div>
+      <a href="">EDIT</a>
     </article>
   </main>
 
