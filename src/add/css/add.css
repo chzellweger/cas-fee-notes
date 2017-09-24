@@ -1,0 +1,27 @@
+form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form div {
+  width: 100%;
+}
+
+form > div:nth-child(3) {
+  display: flex;
+  justify-content: flex-start;
+}
+form > div:nth-child(5) > button {
+  width: 100%;
+}
+
+form > div:last-child {
+  display: flex;
+  justify-content: flex-end;
+}
+
+legend,
+form > div:not(:nth-child(3)) label {
+  display: inline-block;
+  min-width: 15rem;
+}

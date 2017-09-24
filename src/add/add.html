@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="add.css">
+    <title>doit.io – my CAS-FEE-to-do-App</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Add/Edit note</h1>
+    </header>
+
+    <main>
+      <form action="" method="get">
+        <div>
+          <label for="title">Title</label>
+          <input id="title" name='title' type='text' placeholder="your title" required/>
+        </div>
+        <div>
+          <label for="content">Content</label>
+          <textarea name='content' type='text' placeholder="your note" required/></textarea>
+        </div>
+        <div>
+          <legend>Importance</legend>
+          <div>
+          <input id="1" name='importance' type='radio' value="1" />
+          <label for='1'>*</label>
+          <input id="1" name='importance' type='radio' value="2" />
+          <label for='2'>**</label>
+          <input id="1" name='importance' type='radio' value="3" />
+          <label for='3'>***</label>
+          <input id="1" name='importance' type='radio' value="4" />
+          <label for='4'>****</label>
+          <input id="1" name='importance' type='radio' value="5" />
+          <label for='5'>*****</label>
+          </div>
+        </div>
+        <div>
+          <label for="date">Erledigt bis:</label>
+          <input id="label" name="finishby" type="date" required><span>	&#128197;</span>
+        </div>
+        <div>
+          <button type="submit">Add/Edit note</button>
+        </div>
+        <div>
+        <button type="reset">Cancel</button>
+        </div>
+      </form>
+    </main>
+
+  </body>
+</html>

@@ -2,14 +2,16 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/index.js'
+    index: './src/index/index.js',
+    add: './src/add/add.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -28,10 +30,18 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(['dist']),
+
+    new ExtractTextPlugin({filename: '[name].css'}),
+
     new HtmlWebpackPlugin({
-      title: 'Development',
-      template: 'index.html'
+      filename: 'index.html',
+      template: './src/index/index.html',
+      chunks: ['index']
     }),
-    new ExtractTextPlugin('index.css')
-  ],
+    new HtmlWebpackPlugin({
+      filename: 'add.html',
+      template: './src/add/add.html',
+      chunks: ['add']
+    })
+  ]
 }
