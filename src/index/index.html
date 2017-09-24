@@ -9,130 +9,70 @@
 </head>
 
 <body>
-  <div>
   <header>
-    <a href="./add.html">CREATE NEW NOTE</a>
     <div>
-    <select name="css-style">
-        <option>DAY MODE</option>
-        <option>NIGHT MODE</option>
+      <a href="./add.html">create new note</a>
+    </div>
+    <div>
+      <select name="css-style">
+        <option>day mode</option>
+        <option>night mode</option>
       </select>
     </div>
   </header>
 
   <nav>
-    <ul>
-      <li>
-        <input id="finish-date" type="radio" name="sorting" value="finish">
-        <label for="finish-date">
-          <span>by finish date</span>
+    <div>
+      <ul>
+        <li>
+          <input id="finish-date" type="radio" name="sorting" value="finish">
+          <label for="finish-date">
+            <span>by finish date</span>
+          </label>
+        </li>
+        <li>
+          <input id="created" type="radio" name="sorting" value="created">
+          <label for="created">
+          <span>by created date</span>
         </label>
-      </li>
-      <li>
-        <input id="created" type="radio" name="sorting" value="created">
-        <label for="created">
-        <span>by created date</span>
-      </label>
-      </li>
-      <li>
-        <input id="sorting" type="radio"  name="sorting" value="importance">
-        <label for="sorting">
-          <span>by importance</span>
-        </label>
-      </li>
-    </ul>
+        </li>
+        <li>
+          <input id="sorting" type="radio" name="sorting" value="importance">
+          <label for="sorting">
+            <span>by importance</span>
+          </label>
+        </li>
+      </ul>
+    </div>
     <div>
       <input id="toggle-finished" type="checkbox">
-      <label for="toggle-finished"><span>Toggle finished</span></label>
+      <label for="toggle-finished"><span>toggle finished</span></label>
     </div>
   </nav>
-  </div>
 
   <main>
     <article>
-      <div>
-          <input id="element-1" type="checkbox">
-          <label for="element-1"><span>Finished [date]</span></label>
-        <span>Finish by</span>
-      </div>
-      <div>
-        Importance: <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span>
-      </div>
-      <div>
-        <details>
-          <summary>Item 1 - Title</summary>
-          <p>Some more info about it</p>
-        </details>
-      </div>
-      <a href="">EDIT</a>
-    </article>
-    <article>
-      <div>
-          <input id="element-2" type="checkbox">
-          <label for="element-2"><span>Finished [date]</span></label>
-        <span>Finish by</span>
-      </div>
-      <div>
-        Importance: <span>&#9889;</span><span>&#9889;</span>
+      <div>  
+        <div>
+          <span>Finish by</span>
+          <label>
+            <input id="element-1" type="checkbox">
+            <span>Finished <span>[date]</span> 
+          </label>
+          </div>
+        <div>
+            <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
+        </div>
       </div>
       <div>
         <details>
-          <summary>Item 1 - Title</summary>
+          <summary>Item 1 - Title </summary>
           <p>Some more info about it</p>
         </details>
       </div>
-      <a href="">EDIT</a>
-    </article>
-    <article>
-      <div>
-          <input id="element-3" type="checkbox">
-          <label for="element-3"><span>Finished [date]</span></label>
-        <span>Finish by</span>
+      <div>  
+        <a href="">edit</a>
       </div>
-      <div>
-        Importance: <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span>
-      </div>
-      <div>
-        <details>
-          <summary>Item 2 - Title</summary>
-          <p>Some more info about it</p>
-        </details>
-      </div>
-      <a href="">EDIT</a>
-    </article>
-    <article>
-      <div>
-          <input id="element-4" type="checkbox">
-          <label for="element-4"><span>Finished [date]</span></label>
-        <span>Finish by</span>
-      </div>
-      <div>
-        Importance: <span>&#9889;</span>
-      </div>
-      <div>
-        <details>
-          <summary>Item 3 - Title</summary>
-          <p>Some more info about it</p>
-        </details>
-      </div>
-      <a href="">EDIT</a>
-    </article>
-    <article>
-      <div>
-          <input id="element-5" type="checkbox">
-          <label for="element-5"><span>Finished <span>[date]</span> </span></label>
-        <span>Finish by</span>
-      </div>
-      <div>
-        Importance: <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span>
-      </div>
-      <div>
-        <details>
-          <summary>Item 4- Title</summary>
-          <p>Some more info about it</p>
-        </details>
-      </div>
-      <a href="">EDIT</a>
     </article>
   </main>
 </body>
