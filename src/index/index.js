@@ -1,4 +1,4 @@
-require('./css/index.css')
+require('./css/global.css')
 //require('./css/commons.css')
 require('./css/header.css')
 require('./css/nav.css')

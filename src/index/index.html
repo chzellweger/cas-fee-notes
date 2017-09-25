@@ -14,54 +14,58 @@
       <a href="./add.html">create new note</a>
     </div>
     <div>
-      <select name="css-style">
-        <option>day mode</option>
-        <option>night mode</option>
-      </select>
+      <label for="select-style">
+        <span>Select Style:</span>
+          <select id="select-style" name="style">
+            <option>day mode</option>
+            <option>night mode</option>
+          </select>
+      </label>
     </div>
   </header>
 
   <nav>
     <div>
-      <ul>
-        <li>
-          <input id="finish-date" type="radio" name="sorting" value="finish">
-          <label for="finish-date">
-            <span>by finish date</span>
-          </label>
-        </li>
-        <li>
-          <input id="created" type="radio" name="sorting" value="created">
-          <label for="created">
-          <span>by created date</span>
+      <div>
+        <input id="finish-date" type="radio" name="sorting" value="finish">
+        <label for="finish-date">
+          <span>by finish date</span>
         </label>
-        </li>
-        <li>
-          <input id="sorting" type="radio" name="sorting" value="importance">
-          <label for="sorting">
+      </div>
+      <div>
+        <input id="created" type="radio" name="sorting" value="created">
+        <label for="created">
+            <span>by created date</span>
+          </label>
+      </div>
+      <div>
+        <input id="sorting" type="radio" name="sorting" value="importance">
+        <label for="sorting">
             <span>by importance</span>
           </label>
-        </li>
-      </ul>
+      </div>
     </div>
+
     <div>
-      <input id="toggle-finished" type="checkbox">
-      <label for="toggle-finished"><span>toggle finished</span></label>
+      <div>
+        <input id="toggle-finished" type="checkbox">
+        <label for="toggle-finished"><span>toggle finished</span></label>
+      </div>
     </div>
   </nav>
 
   <main>
     <article>
-      <div>  
+      <div>
         <div>
-          <span>Finish by</span>
+          <span>Finish by {{date}}</span>
           <label>
             <input id="element-1" type="checkbox">
-            <span>Finished <span>[date]</span> 
+            <span>Finished <span>{{date}}</span> 
           </label>
-          </div>
+        </div>
         <div>
-            <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
+          <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
         </div>
       </div>
       <div>
@@ -70,56 +74,58 @@
           <p>Some more info about it</p>
         </details>
       </div>
-      <div>  
+      <div>
         <a href="">edit</a>
       </div>
     </article>
+
     <article>
-        <div>  
-          <div>
-            <span>Finish by</span>
-            <label>
+      <div>
+        <div>
+          <span>Finish by {{date}}</span>
+          <label>
               <input id="element-1" type="checkbox">
-              <span>Finished <span>[date]</span> 
+              <span>Finished <span>{{date}}</span> 
             </label>
-            </div>
-          <div>
-              <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
-          </div>
         </div>
         <div>
-          <details>
-            <summary>Item 2- Title </summary>
-            <p>Some more info about it</p>
-          </details>
+          <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
         </div>
-        <div>  
-          <a href="">edit</a>
-        </div>
-      </article>
-      <article>
-          <div>  
-            <div>
-              <span>Finish by</span>
-              <label>
+      </div>
+      <div>
+        <details>
+          <summary>Item 2- Title </summary>
+          <p>Some more info about it</p>
+        </details>
+      </div>
+      <div>
+        <a href="">edit</a>
+      </div>
+    </article>
+
+    <article>
+      <div>
+        <div>
+          <span>Finish by {{date}}</span>
+          <label>
                 <input id="element-1" type="checkbox">
-                <span>Finished <span>[date]</span> 
+                <span>Finished <span>{{date}}</span> 
               </label>
-              </div>
-            <div>
-                <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
-            </div>
-          </div>
-          <div>
-            <details>
-              <summary>Item 3 - Title </summary>
-              <p>Some more info about it</p>
-            </details>
-          </div>
-          <div>  
-            <a href="">edit</a>
-          </div>
-        </article>
+        </div>
+        <div>
+          <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
+        </div>
+      </div>
+      <div>
+        <details>
+          <summary>Item 3 - Title </summary>
+          <p>Some more info about it</p>
+        </details>
+      </div>
+      <div>
+        <a href="">edit</a>
+      </div>
+    </article>
   </main>
 </body>
 

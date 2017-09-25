@@ -1,19 +1,26 @@
 article {
   border-bottom: 2px solid rgba(29, 29, 38, 0.05);
+  margin-bottom: 0.5rem;
 }
 
 article > div:first-child {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
+  border-top: 2px solid rgba(29, 29, 38, 0.05);
 }
 
 article > div:first-child > div:first-child {
   display: flex;
   flex-direction: column;
+  
 }
 
 article > div:last-child {
   display: flex;
   justify-content: flex-end;
+}
+
+summary {
+  border-top: 1px solid rgba(29, 29, 38, 0.05);
 }
