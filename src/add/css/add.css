@@ -1,4 +1,4 @@
-form > div:nth-child(1) {
+form > div:not(:nth-child(4)) {
   display: flex;
 }
 
@@ -6,16 +6,11 @@ form > div:nth-child(1) input {
   flex-grow: 1;
 }
 
-form > div:nth-child(2) {
-  display: flex;
-}
-
 form > div:nth-child(2) textarea {
   flex-grow: 1
 }
 
 form > div:nth-child(3) {
-  display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
@@ -31,6 +26,5 @@ form > div:nth-child(5) > button {
 }
 
 form > div:nth-child(6) {
-  display: flex;
   justify-content: flex-end;
 }
