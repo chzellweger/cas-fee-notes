@@ -16,7 +16,7 @@
     </header>
 
     <main>
-      <form action="" method="get">
+      <form action="add.html" method="get">
 
         <div>
           <label for="title">Title</label>
@@ -25,7 +25,7 @@
 
         <div>
           <label for="content">Content</label>
-          <textarea name='content' type='text' placeholder="your note" cols=50 required/></textarea>
+          <textarea id="content" name='content' type='text' placeholder="your note" cols=50 required/></textarea>
         </div>
 
         <div>
@@ -46,7 +46,7 @@
 
         <div>
           <label for="date">Erledigt bis:</label>
-          <input id="label" name="finishby" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span>
+          <input id="date" name="finishby" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span>
         </div>
 
         <div>
@@ -58,6 +58,6 @@
         </div>
       </form>
     </main>
-
+    <script src="add.js"></script>
   </body>
 </html>

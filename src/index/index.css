@@ -7,6 +7,10 @@ header {
   align-items: flex-end;
 }
 
+header > div {
+  flex: 1 1 0%;
+}
+
 header select {
   font-size: 1.8rem;
 }
@@ -16,7 +20,6 @@ nav {
   
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 nav > div:first-child {
