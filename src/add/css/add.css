@@ -1,35 +1,36 @@
-form {
-
-}
-
-form div {
+form > div:nth-child(1) {
   display: flex;
 }
 
-form > div:nth-child(1),
+form > div:nth-child(1) input {
+  flex-grow: 1;
+}
+
 form > div:nth-child(2) {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+}
+
+form > div:nth-child(2) textarea {
+  flex-grow: 1
 }
 
 form > div:nth-child(3) {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
-}
-
-
-form > div:nth-child(5) > button {
-  width: 100%;
-}
-
-form > div:last-child {
-  display: flex;
-  justify-content: flex-end;
 }
 
 legend,
 form > div:not(:nth-child(3)) label {
   display: inline-block;
-  min-width: 30rem;
+  min-width: 12rem;
+}
+
+form > div:nth-child(5) > button {
+  width: 100%;
+}
+
+form > div:nth-child(6) {
+  display: flex;
+  justify-content: flex-end;
 }

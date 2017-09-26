@@ -1,5 +1,6 @@
 module.exports = {
   plugins: {
-    'autoprefixer': {},
+    'autoprefixer': process.env.NODE_ENV == 'production' ? options.autoprefixer : false
+    //'autoprefixer': {},
   }
 }
