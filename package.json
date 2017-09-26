@@ -1,13 +1,11 @@
 {
   "name": "cas-fee-notes",
-  "version": "0.0.1",
-  "description": "note app for cas-fee",
+  "version": "0.1.0",
+  "description": "```bash git clone https://github.com/chzellweger/cas-fee-notes.git cd cas-fee-notes npm install ```",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --progress --watch",
-    "start": "webpack-dev-server --open",
-    "build": "webpack"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -19,15 +17,7 @@
     "url": "https://github.com/chzellweger/cas-fee-notes/issues"
   },
   "homepage": "https://github.com/chzellweger/cas-fee-notes#readme",
-  "devDependencies": {
-    "clean-webpack-plugin": "^0.1.16",
-    "copy-webpack-plugin": "^4.0.1",
-    "css-loader": "^0.28.7",
-    "extract-text-webpack-plugin": "^3.0.0",
-    "html-webpack-plugin": "^2.30.1",
-    "postcss-loader": "^2.0.6",
-    "style-loader": "^0.18.2",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.8.2"
+  "dependencies": {
+    "serve": "^6.1.0"
   }
 }
