@@ -12,10 +12,8 @@
 
   // implement style-changer
   const styleChanger = document.getElementById('select-style')
-  const body = document.getElementsByTagName('body')[0]
-
   styleChanger.addEventListener('change', function(e) {
     localStorage.setItem('style', JSON.stringify(e.target.value))
-    body.className = e.target.value
+    document.body.className = e.target.value
   })
 })()
