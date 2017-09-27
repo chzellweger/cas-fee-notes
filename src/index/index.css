@@ -1,14 +1,19 @@
 header {
-  margin-top: 5rem;
-  margin-bottom: 2.5rem;
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-end;
+
+  background-color: rgba(34, 117, 165, 0.53)
+/*  align-items: flex-end;*/
 }
 
 header > div {
   flex: 1 1 0%;
+
+  display: flex;
+  justify-content: center;
 }
 
 header select {
@@ -17,15 +22,15 @@ header select {
 
 nav {
   margin-bottom: 5rem;
-  
+
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 nav > div:first-child {
   display: flex;
   flex-wrap: wrap;
-  align-items: space-between;
 }
 
 nav label {
