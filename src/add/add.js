@@ -4,27 +4,16 @@
     ? JSON.parse(localStorage.getItem('notes'))
     : []
 
-  const note = getQueryStringAsObject()
+  const note = helpers.getQueryStringAsObject()
 
   if (note) {
     note.id = new Date().getTime()
     note.importance = note.importance || 1
-
+    // note.finishby = new Date(note.finishby).getTime() > new Date().getTime() ? note.finishby : new Date().format("dd-mm-yyyy")
     items.push(note)
     localStorage.setItem('notes', JSON.stringify(items))
   }
-
-  function getQueryStringAsObject() {
-    let queryString = window.location.search.substring(1)
-    if (queryString.length === 0) return null
-
-    let queryElements = queryString.split('&')
-
-    return queryElements.reduce((object, queryPair) => {
-      const keyValue = queryPair.split('=')
-
-      object[keyValue[0]] = decodeURIComponent(keyValue[1]).replace(/\+/g, ' ')
-      return object
-    }, {})
-  }
+  
+  // setup style-changing-functionality
+  helpers.initStyleListener()
 })()

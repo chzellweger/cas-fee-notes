@@ -10,10 +10,8 @@
   const count = document.getElementById('count')
   count.innerText = `${items.length} ${postFix}`
 
-  // implement style-changer
-  const styleChanger = document.getElementById('select-style')
-  styleChanger.addEventListener('change', function(e) {
-    localStorage.setItem('style', JSON.stringify(e.target.value))
-    document.body.className = e.target.value
-  })
+  // setup style-changing-functionality
+  helpers.initStyleChanger()
+  helpers.initStyleListener()
+
 })()
