@@ -1,22 +1,22 @@
 const helpers = (function(window) {
-  const styleChanger = document.getElementById('select-style')
+  const _styleChanger = document.getElementById('select-style')
 
-  function initStyleChanger() {
-    styleChanger.addEventListener('change', function(e) {
+  const initStyleChanger = function() {
+    _styleChanger.addEventListener('change', function(e) {
       localStorage.setItem('style', JSON.stringify(e.target.value))
       document.body.className = e.target.value
     })
   }
 
-  function initStyleListener() {
+  const initStyleListener = function() {
     window.addEventListener('DOMContentLoaded', function() {
       const style = JSON.parse(localStorage.getItem('style'))
       document.body.className = style
-      if (styleChanger) styleChanger.value = style
+      if (_styleChanger) _styleChanger.value = style
     })
   }
 
-  function getQueryStringAsObject() {
+  const getQueryStringAsObject = function() {
     let queryString = window.location.search.substring(1)
     if (queryString.length === 0) return null
 
@@ -30,9 +30,14 @@ const helpers = (function(window) {
     }, {})
   }
 
+  const getItems = function() {
+    return localStorage.notes ? JSON.parse(localStorage.getItem('notes')) : []
+  }
+
   return {
     initStyleChanger,
     initStyleListener,
-    getQueryStringAsObject
+    getQueryStringAsObject,
+    getItems
   }
 })(window)

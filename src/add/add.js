@@ -1,9 +1,7 @@
 ;(function() {
   'use strict'
-  const items = localStorage.notes
-    ? JSON.parse(localStorage.getItem('notes'))
-    : []
-
+  const items = helpers.getItems()
+  
   const note = helpers.getQueryStringAsObject()
 
   if (note) {

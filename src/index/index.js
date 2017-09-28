@@ -1,9 +1,7 @@
 'use strict'
 ;(function() {
   // implement number of items
-  const items = localStorage.notes
-    ? JSON.parse(localStorage.getItem('notes'))
-    : []
+  const items = helpers.getItems()
 
   const postFix = items.length === 1 ? 'Notiz' : 'Notizen'
 
