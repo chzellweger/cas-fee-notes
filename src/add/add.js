@@ -1,17 +1,10 @@
+'use strict'
 ;(function() {
-  'use strict'
-  const items = helpers.getItems()
+  controller.init()
   
-  const note = helpers.getQueryStringAsObject()
-
-  if (note) {
-    note.id = new Date().getTime()
-    note.importance = note.importance || 1
-    // note.finishby = new Date(note.finishby).getTime() > new Date().getTime() ? note.finishby : new Date().format("dd-mm-yyyy")
-    items.push(note)
-    localStorage.setItem('notes', JSON.stringify(items))
+  // catch form input
+  if(helpers.getQueryVariable('mode')) {
+    controller.editItems(helpers.getQueryVariable('id'))
   }
-  
-  // setup style-changing-functionality
-  helpers.initStyleListener()
+  controller.createItems()
 })()
