@@ -12,13 +12,4 @@ npm install
 ```bash
 npm run start
 ```
-Serves project on http://localhost:8080/
-
-## Distribution
-Compile using
-
-```bash
-npm run build
-```
-
-Files will be placed in `build`.
+Serves project on http://localhost:8888

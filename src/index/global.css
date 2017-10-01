@@ -24,3 +24,8 @@ body {
   font-size: 1.8rem;
   font-weight: 300;
 }
+
+body.night  {
+  background-color: rgba(0, 0, 0, 0.72);
+  color: wheat;
+}

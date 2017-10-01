@@ -1,5 +1,15 @@
-require('./css/global.css')
-//require('./css/commons.css')
-require('./css/header.css')
-require('./css/nav.css')
-require('./css/article.css')
+'use strict'
+;(function() {
+  // implement number of items
+  const items = helpers.getItems('notes')
+
+  const postFix = items.length === 1 ? 'Notiz' : 'Notizen'
+
+  const count = document.getElementById('count')
+  count.innerText = `${items.length} ${postFix}`
+
+  // setup style-changing-functionality
+  helpers.initStyleChanger()
+  helpers.initStyleListener()
+
+})()

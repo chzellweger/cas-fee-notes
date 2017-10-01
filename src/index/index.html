@@ -6,19 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>doit.io – my CAS-FEE-to-do-App</title>
+  <link rel="stylesheet" type="text/css" href="global.css">
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
 <body>
   <header>
+    <div><span id="count">0 Notizen</span></div>
     <div>
-      <a href="./add.html">create new note</a>
+      <a href="../add/add.html">create new note</a>
     </div>
     <div>
       <label for="select-style">
         <span>Select Style:</span>
           <select id="select-style" name="style">
-            <option>day mode</option>
-            <option>night mode</option>
+            <option value="day">day mode</option>
+            <option value="night">night mode</option>
           </select>
       </label>
     </div>
@@ -127,6 +130,8 @@
       </div>
     </article>
   </main>
+  <script src="helpers.js"></script>
+  <script src="index.js"></script>
 </body>
 
 </html>
