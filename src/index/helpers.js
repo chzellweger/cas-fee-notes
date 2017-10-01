@@ -30,8 +30,8 @@ const helpers = (function(window) {
     }, {})
   }
 
-  const getItems = function() {
-    return localStorage.notes ? JSON.parse(localStorage.getItem('notes')) : []
+  const getItems = function(key) {
+    return localStorage.notes ? JSON.parse(localStorage.getItem(key)) : []
   }
 
   return {

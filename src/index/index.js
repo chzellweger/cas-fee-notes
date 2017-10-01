@@ -1,7 +1,7 @@
 'use strict'
 ;(function() {
   // implement number of items
-  const items = helpers.getItems()
+  const items = helpers.getItems('notes')
 
   const postFix = items.length === 1 ? 'Notiz' : 'Notizen'
 

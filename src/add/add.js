@@ -1,6 +1,6 @@
 ;(function() {
   'use strict'
-  const items = helpers.getItems()
+  const items = helpers.getItems('notes')
   
   const note = helpers.getQueryStringAsObject()
 
