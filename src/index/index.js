@@ -1,4 +1,5 @@
 'use strict'
 ;(function() {
-  controller.init()
+  const Controller = new controller(model, View)
+  Controller.init()
 })()

@@ -1,5 +1,14 @@
 'use strict'
 const model = (function() {
+  function Model(){
+    this.val = 'hi'
+  }
+  return {
+    Model
+  }
+})()
+/*
+const model = (function() {
 
   const setItem = function (key, value) {
     localStorage.setItem(key, JSON.stringify(value))
@@ -35,7 +44,22 @@ const model = (function() {
   const createItems = function () {
     const items = model.getItems()
     const note = helpers.getQueryStringAsObject()
+    console.log(helpers.getQueryVariable('mode'))
+    if (helpers.getQueryVariable('mode') === 'edit') {
+      console.log(this)
+      this.editItem(helpers.getQueryVariable('id'))
+      return
+    }
+  
+ /*   
+    if(id && note) {
+      let note = items.find(el => el.id.toString() === id.toString())
+      console.log(note)
+    }
+ */
 
+ /*
+  
     if (note) {
       note.id = new Date().getTime()
       note.importance = note.importance || 1
@@ -46,12 +70,30 @@ const model = (function() {
     }
   }
 
+  const editItem = function(id) {
+    const item = helpers.getQueryStringAsObject()
+    item.id = id
+    console.log(id)
+  }
+
+  const hello = function () {
+    console.log('hello')
+  }
+
+  const exposeHello = function() {
+    this.hello()
+  }
+
   return {
     getItems,
     saveItems,
     setItem,
     getItem,
     markAsFinished,
-    createItems
+    createItems,
+    editItem,
+    exposeHello
   }
 })()
+*/
+

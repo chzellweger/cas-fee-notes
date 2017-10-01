@@ -1,5 +1,96 @@
 'use strict'
+const View = (function(Controller) {
+  return class View {
+    constructor() {
+      this._styleChanger = document.getElementById('select-style')
+      this._sortButtons = document.getElementsByName('sorting')
+      this._toggleShowFinishedButtons = document.getElementById('toggle-finished')
+      this._count = document.getElementById('count')
+      this._target = document.getElementById('rendered-content')
+      this._source =
+        document.getElementById('note-template') &&
+        document.getElementById('note-template').innerHTML
+      this._title = document.getElementById('title')
+      this._content = document.getElementById('content')
+      this._importance = document.getElementsByName('importance')
+      this._finishby = document.getElementById('date')
+    }
+    init() {
+      console.log(this)
+      this.initStyleListener()
+    }
+    initStyleListener() {
+      window.addEventListener('DOMContentLoaded', function() {
+        console.log('i listen to styles now...')
+        const style = controller.getItem('style') || 'day'
+        document.body.className = style
+        if (_styleChanger) _styleChanger.value = style
+      })
+    }
+    initStyleChanger() {
+      _styleChanger.addEventListener('change', function(e) {
+        controller.setItem('style', e.target.value)
+        document.body.className = e.target.value
+      })
+    }
+  }
+})()
+  /*
+  function View() {
+  }
+
+  View.prototype.constructor = View
+
+  View.prototype.init = function() {
+    this.initStyleListener()
+
+    // only if we are on the main page:
+    // - attach other listeners too
+    // - render dynamic content
+    if (_styleChanger && _sortButtons && _toggleShowFinishedButton && _count) {
+      this.initStyleChanger()
+      this.initFinish()
+      this.initSort()
+      this.initToggleShowFinish()
+      this.setCount()
+
+      // initial render
+      this.render()
+    }
+  }
+
+  View.prototype.initStyleListener = function () {
+    window.addEventListener('DOMContentLoaded', function() {
+      console.log('i listen to styles now...')
+      const style = controller.getItem('style') || 'day'
+      document.body.className = style
+      if (_styleChanger) _styleChanger.value = style
+    })
+  }
+
+  View.prototype.
+
+  return {
+    View
+  }
+})()
+/*
 const view = (function(window, document) {
+  return function View() {
+    this._styleChanger = document.getElementById('select-style')
+    this._sortButtons = document.getElementsByName('sorting')
+    this._toggleShowFinishedButtons =  document.getElementById('toggle-finished')
+    this._count =  document.getElementById('count')
+    this._target =  document.getElementById('rendered-content')
+    this._source = 
+      document.getElementById('note-template') &&
+      document.getElementById('note-template').innerHTML
+    this._title =  document.getElementById('title')
+    this._content = document.getElementById('content')
+    this._importance =  document.getElementsByName('importance')
+    this._finishby =  document.getElementById('date')
+  }
+  /*
   const setup = function() {
     return {
       _styleChanger: document.getElementById('select-style'),
@@ -95,12 +186,19 @@ const view = (function(window, document) {
     controller.setItem('filter', false)
 
     _toggleShowFinishedButton.addEventListener('change', function(e) {
-      console.log('changed')
       controller.setItem('filter', _toggleShowFinishedButton.checked)
     })
   }
+  
+  const fillFields = function(item) {
+    _title.value = item.title
+    _content.value = item.content
+    _finishby.value = item.finishby
+    Array.from(_importance).find(el => el.value === item.importance.toString()).checked = true
+  }
 
   const render = function() {
+    // get app state
     let items = controller.getItems()
 
     const template = Handlebars.compile(_source)
@@ -109,6 +207,7 @@ const view = (function(window, document) {
     const showAll = controller.getItem('filter')
     const sortBy = controller.getItem('sort')
 
+    // setup items according to state
     if (!showAll) {
       items = items.filter(item => item.finished !== true)
     }
@@ -122,7 +221,7 @@ const view = (function(window, document) {
         return a[sortBy] < b[sortBy]
       })
     }
-
+    
 
     let content = ''
 
@@ -134,17 +233,11 @@ const view = (function(window, document) {
 
     target.innerHTML = content
   }
-
-  const fillFields = function(item) {
-    _title.value = item.title
-    _content.value = item.content
-    _finishby.value = item.finishby
-    Array.from(_importance).find(el => el.value === item.importance.toString()).checked = true
-  }
-
+  
   return {
     init,
     render,
     fillFields
   }
 })(window, document)
+*/

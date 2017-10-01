@@ -1,7 +1,47 @@
 'use strict'
 const controller = (function() {
+  return class Controller {
+    constructor(model, view) {
+      this.model = new Model()
+      this.view = new View()
+    }
+    init() {
+      console.log('init')
+      view.init;
+    }
+    getItem(key) {
+      return model.getItem(key)
+    }
+    setItem(key, item) {
+      model.getItem(key, item)
+    }
+  }
+})()
+  /*
+  function Controller(model, view) {
+    this.val = 'controller'
+    this.model = new model.Model()
+    this.view = new View()
+  }
+  Controller.prototype.log = function() {
+    console.log(this.val)
+  }
+  Controller.prototype.init = function (){
+    this.view.init()
+  }
+  return {
+    Controller
+  }
+})()
+/*
+const controller = (function(model, view) {
+  console.log(view)
+  this.view = new view()
+  this.controller = new controller()
+
   const init = function () {
-    view.init()
+    this.view.init()
+    this.createItems()
   }
 
   const setItem = function (key, item) {
@@ -19,16 +59,16 @@ const controller = (function() {
   }
 
   const createItems = function () {
+    console.log('create')
     model.createItems()
   }
 
   const editItems = function (id) {
-    console.log(id)
-    console.log(model.getItems())
     const item = model.getItems().find(el => el.id.toString() === id)
     console.log(item)
     view.fillFields(item)
 
+    //model.createItems(id)
   }
 
   const getItems = function() {
@@ -55,4 +95,6 @@ const controller = (function() {
     setItem,
     render
   }
-})()
+})(window, document, model, view)
+*/
+
