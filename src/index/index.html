@@ -70,7 +70,7 @@
                 </label>
           </div>
           <div>
-            <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
+            <span>{{#repeat importance}}<span>&#9889;</span>{{/repeat}}</span>
           </div>
         </div>
         <div>
@@ -87,9 +87,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="helpers.js"></script>
-    <script src="../js/model.js"></script>
-    <script src="../js/view.js"></script>
-    <script src="../js/controller.js"></script>
+    <script src="../js/Model.js"></script>
+    <script src="../js/View.js"></script>
+    <script src="../js/Controller.js"></script>
+    <script src="../js/App.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

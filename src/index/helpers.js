@@ -26,8 +26,43 @@ const helpers = (function(window) {
     return false
   }
 
+  function handlebarsRepeatHelper(n, options) {
+    const isNum = !isNaN(n);
+  
+    if (!isNum) {
+      options = n;
+      n = 0;
+    }
+  
+    options = options || {};
+    const opts = Object.assign({count: n}, options, options.hash);
+    const ctx = this.context
+      ? Object.assign({}, this.context, opts)
+      : Object.assign({}, this, opts);
+  
+    if (opts.count) {
+      return block(ctx);
+    }
+  
+    return options.inverse(ctx);
+  };
+  
+  function block(options) {
+    const max = options.count;
+    let str = '';
+  
+    const start = options.start || 0;
+    
+    for (var i = start; i < (max + start); i++) {
+      var data = Object.assign({index: i}, options);
+      str += options.fn(options, {data: data});
+    }
+    return str;
+  }
+
   return {
     getQueryStringAsObject,
-    getQueryVariable
+    getQueryVariable,
+    handlebarsRepeatHelper
   }
 })(window)
