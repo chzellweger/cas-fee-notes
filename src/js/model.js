@@ -1,4 +1,5 @@
-'use strict'
+/* eslint no-unused-vars: "off" */
+
 const Model = (function() {
   class Model {
     setItem(key, value) {
@@ -16,11 +17,11 @@ const Model = (function() {
     markAsFinished(id, callback) {
       const item = this.getItems().find(el => el.id.toString() === id)
       const restItems = this.getItems().filter(el => el.id.toString() !== id)
-      
-      const modifiedItem = Object.assign(item, {finished: !item.finished})
-      
+
+      const modifiedItem = Object.assign(item, { finished: !item.finished })
+
       restItems.push(modifiedItem)
-      
+
       this.saveItems(restItems)
 
       callback()

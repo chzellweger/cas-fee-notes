@@ -63,7 +63,7 @@
       <article>
         <div>
           <div>
-            <span>Finish by {{ finishby }}</span>
+            <span>Finish by {{finishby}}</span>
             <label>
                   <input id="{{ id }}" name="finish" type="checkbox" {{#if finished}}checked{{/if}}>
                   <span>Finished <span></span> 
@@ -84,7 +84,7 @@
         </div>
       </article>
     </script>
-
+    <script src="http://cdn.date-fns.org/v2.0.0-alpha0/date_fns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="helpers.js"></script>
     <script src="../js/Model.js"></script>

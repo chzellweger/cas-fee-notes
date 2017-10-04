@@ -1,4 +1,6 @@
-'use strict'
+/* global Controller Handlebars helpers */
+/* eslint no-unused-vars: "off" */
+
 const View = (function() {
   class View {
     constructor() {
@@ -19,16 +21,21 @@ const View = (function() {
     }
     init() {
       this.initStyleListener()
-
+      
       if (this._styleChanger) {
+        this.initHandlebars()
         this.initStyleChanger()
         this.setCount()
         this.initToggleShowFinish()
         this.initSetFinished()
         this.initSort()
 
-        this.render()
+        this.render(Controller.getItems())
       }
+    }
+    initHandlebars() {
+      Handlebars.registerHelper('repeat', helpers.handlebarsRepeatHelper)
+      this._createHtml = Handlebars.compile(this._source)
     }
     initStyleListener() {
       window.addEventListener('DOMContentLoaded', () => {
@@ -90,41 +97,12 @@ const View = (function() {
       ).checked = true
       this._finishby.value = item.finishby
     }
-    render() {
-      // get app state
-      let items = Controller.getItems('notes')
-      
-
-      Handlebars.registerHelper('repeat', helpers.handlebarsRepeatHelper)
-      const template = Handlebars.compile(this._source)
-      const target = this._target
-
-      const showAll = Controller.getItem('filter')
-      const sortBy = Controller.getItem('sort')
-
-      // setup items according to state
-      if (!showAll) {
-        items = items.filter(item => item.finished !== true)
-      }
-
-      if (sortBy === 'finishby') {
-        items = items.sort((a, b) => {
-          return a[sortBy] > b[sortBy]
-        })
-      } else {
-        items = items.sort((a, b) => {
-          return a[sortBy] < b[sortBy]
-        })
-      }
-
-      let content = ''
-
-      items.forEach(item => {
-        var context = item
-        context.importance = parseInt(context.importance, 10)
-        var html = template(context)
-        content += html
-      })
+    render(items) {
+      const content = items.reduce((content, item) => {
+        item.importance = parseInt(item.importance, 10)
+        content += this._createHtml(item)
+        return content
+      }, '')
 
       this._target.innerHTML = content
     }

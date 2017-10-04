@@ -1,4 +1,4 @@
-'use strict'
-;(function() {
-Controller.init()
+/* global Controller */
+;(function () {
+  Controller.init()
 })()
