@@ -7,24 +7,24 @@ const Controller = (function() {
       this.model = model
       this.view = view
 
-      this.styleListener = this.styleListener.bind(this)
-      this.setCount = this.setCount.bind(this)
-      
-      this.getItem = this.getItem.bind(this)
-      this.setItem = this.setItem.bind(this)
-      this.getItems = this.getItems.bind(this)
-      this.setItems = this.setItems.bind(this)
-      
-      this.createItems = this.createItems.bind(this)
-      
-      this.sortItems = this.sortItems.bind(this)
-      
       this.handleStyleChanger = this.handleStyleChanger.bind(this)
       this.handleSetFinished = this.handleSetFinished.bind(this)
       this.handleSortButtons = this.handleSortButtons.bind(this)
       this.handleToggleShowFinished = this.handleToggleShowFinished.bind(this)
 
       this.render = this.render.bind(this)
+
+      this.styleListener = this.styleListener.bind(this)
+      this.setCount = this.setCount.bind(this)
+
+      this.getItem = this.getItem.bind(this)
+      this.setItem = this.setItem.bind(this)
+      this.getItems = this.getItems.bind(this)
+      this.setItems = this.setItems.bind(this)
+
+      this.createItems = this.createItems.bind(this)
+
+      this.sortItems = this.sortItems.bind(this)
     }
     init() {
       this.view.initStyleListener(this.styleListener)
@@ -54,29 +54,25 @@ const Controller = (function() {
         this.createItems(helpers.getQueryStringAsObject())
       }
     }
-    handleSetFinished(e) {
-      const contentList = this.view._target
-      contentList.addEventListener('click', function(e) {
-        console.log(e)
-        console.log('called listener')
-        console.log(e.currentTarget)
-
-        if (e.target && e.target.matches('input[name="finish"]')) {
-          console.log('found target')
-          this.markAsFinished(e.target.id)
-        }
-      })
+    handleSetFinished(targetMarkup, e) {
+      const contentList = targetMarkup
+      if (e.target && e.target.matches('input[name="finish"]')) {
+        this.markAsFinished(e.target.id)
+      }
     }
     markAsFinished(id) {
-      console.log('mark as finished')
-      const item = this.model.getItems().find(el => el.id.toString() === id)
-      const restItems = this.model.getItems().filter(el => el.id.toString() !== id)
+      const findItem = el => el.id.toString() === id
+
+      const items = this.model.getItems()
+
+      const item = items.find(findItem)
+      const index = items.findIndex(findItem)
 
       const modifiedItem = Object.assign(item, { finished: !item.finished })
 
-      restItems.push(modifiedItem)
+      items[index] = modifiedItem
 
-      this.model.saveItems(restItems)
+      this.model.saveItems(items, this.render)
     }
     handleToggleShowFinished() {
       const filter = this.getItem('filter')
@@ -97,7 +93,7 @@ const Controller = (function() {
     styleListener() {
       const style = this.getItem('style') || 'day'
       document.body.className = style
-      if (this._styleChanger) this._styleChanger.value = style
+      if (this.view._styleChanger) this.view._styleChanger.value = style
     }
     getItem(key) {
       return this.model.getItem(key)
@@ -109,7 +105,7 @@ const Controller = (function() {
       this.model.setItems(items)
     }
     setItem(key, item) {
-      this.model.setItem(key, item,  this.render)
+      this.model.setItem(key, item, this.render)
     }
     createItems(query) {
       if (query.mode) {

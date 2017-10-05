@@ -37,7 +37,7 @@ const View = (function() {
     }
     initSetFinished(handler) {
       const contentList = this._target
-      contentList.addEventListener('click', handler)
+      contentList.addEventListener('click', handler.bind(null, contentList))
     }
     initFinish(handler) {
       const contentList = this._target

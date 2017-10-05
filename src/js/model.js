@@ -18,17 +18,6 @@ const Model = (function() {
 
       if (callback) callback()
     }
-    markAsFinished(id) {
-      console.log('mark as finished')
-      const item = this.getItems().find(el => el.id.toString() === id)
-      const restItems = this.getItems().filter(el => el.id.toString() !== id)
-
-      const modifiedItem = Object.assign(item, { finished: !item.finished })
-
-      restItems.push(modifiedItem)
-
-      this.saveItems(restItems)
-    }
   }
   return Model
 })()
