@@ -2,8 +2,10 @@
 
 const Model = (function() {
   class Model {
-    setItem(key, value) {
+    setItem(key, value, callback) {
       localStorage.setItem(key, JSON.stringify(value))
+
+      if(callback) callback()
     }
     getItem(key) {
       return JSON.parse(localStorage.getItem(key))
@@ -11,10 +13,13 @@ const Model = (function() {
     getItems() {
       return localStorage.notes ? JSON.parse(localStorage.getItem('notes')) : []
     }
-    saveItems(items) {
+    saveItems(items, callback) {
       localStorage.setItem('notes', JSON.stringify(items))
+
+      if (callback) callback()
     }
-    markAsFinished(id, callback) {
+    markAsFinished(id) {
+      console.log('mark as finished')
       const item = this.getItems().find(el => el.id.toString() === id)
       const restItems = this.getItems().filter(el => el.id.toString() !== id)
 
@@ -23,9 +28,7 @@ const Model = (function() {
       restItems.push(modifiedItem)
 
       this.saveItems(restItems)
-
-      callback()
     }
   }
-  return new Model()
+  return Model
 })()

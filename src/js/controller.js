@@ -3,36 +3,124 @@
 
 const Controller = (function() {
   class Controller {
+    constructor(model, view) {
+      this.model = model
+      this.view = view
+
+      this.styleListener = this.styleListener.bind(this)
+      this.setCount = this.setCount.bind(this)
+      
+      this.getItem = this.getItem.bind(this)
+      this.setItem = this.setItem.bind(this)
+      this.getItems = this.getItems.bind(this)
+      this.setItems = this.setItems.bind(this)
+      
+      this.createItems = this.createItems.bind(this)
+      
+      this.sortItems = this.sortItems.bind(this)
+      
+      this.handleStyleChanger = this.handleStyleChanger.bind(this)
+      this.handleSetFinished = this.handleSetFinished.bind(this)
+      this.handleSortButtons = this.handleSortButtons.bind(this)
+      this.handleToggleShowFinished = this.handleToggleShowFinished.bind(this)
+
+      this.render = this.render.bind(this)
+    }
     init() {
-      View.init()
+      this.view.initStyleListener(this.styleListener)
+
+      if (this.view._styleChanger) {
+        console.log('main page')
+        this.setCount()
+
+        this.view.initStyleChanger(
+          this.handleStyleChanger,
+          this.getItem('style')
+        )
+        this.view.initSetFinished(this.handleSetFinished)
+        this.view.initSortButtons(this.handleSortButtons)
+        this.view.initToggleShowFinished(
+          this.handleToggleShowFinished,
+          this.getItem('filter')
+        )
+
+        this.view.initHandlebars()
+
+        this.render(this.getItems())
+      }
 
       if (window.location.search.substring(1)) {
+        console.log('add page')
         this.createItems(helpers.getQueryStringAsObject())
       }
     }
+    handleSetFinished(e) {
+      const contentList = this.view._target
+      contentList.addEventListener('click', function(e) {
+        console.log(e)
+        console.log('called listener')
+        console.log(e.currentTarget)
+
+        if (e.target && e.target.matches('input[name="finish"]')) {
+          console.log('found target')
+          this.markAsFinished(e.target.id)
+        }
+      })
+    }
+    markAsFinished(id) {
+      console.log('mark as finished')
+      const item = this.model.getItems().find(el => el.id.toString() === id)
+      const restItems = this.model.getItems().filter(el => el.id.toString() !== id)
+
+      const modifiedItem = Object.assign(item, { finished: !item.finished })
+
+      restItems.push(modifiedItem)
+
+      this.model.saveItems(restItems)
+    }
+    handleToggleShowFinished() {
+      const filter = this.getItem('filter')
+      const newFilter = !filter
+
+      this.setItem('filter', newFilter)
+    }
+    setCount() {
+      const items = this.getItems()
+      const postFix = items.length === 1 ? 'Notiz' : 'Notizen'
+
+      this.view._count.innerText = `${items.length} ${postFix}`
+    }
+    handleStyleChanger(e) {
+      this.setItem('style', e.target.value)
+      document.body.className = e.target.value
+    }
+    styleListener() {
+      const style = this.getItem('style') || 'day'
+      document.body.className = style
+      if (this._styleChanger) this._styleChanger.value = style
+    }
     getItem(key) {
-      return Model.getItem(key)
+      return this.model.getItem(key)
     }
     getItems() {
-      return Model.getItems()
+      return this.model.getItems()
+    }
+    setItems(items) {
+      this.model.setItems(items)
     }
     setItem(key, item) {
-      Model.setItem(key, item)
-      this.render()
-    }
-    markAsFinished(itemId, callback) {
-      Model.markAsFinished(itemId, this.render.bind(this))
+      this.model.setItem(key, item,  this.render)
     }
     createItems(query) {
       if (query.mode) {
-        View.fillFields(
-          Model.getItems().find(el => el.id.toString() === query.id)
+        this.view.fillFields(
+          this.model.getItems().find(el => el.id.toString() === query.id)
         )
         return
         // implement edit mode
       }
 
-      const items = Model.getItems()
+      const items = this.model.getItems()
       const note = query
 
       if (note) {
@@ -40,10 +128,14 @@ const Controller = (function() {
         note.importance = note.importance || 1
         note.finished = false
         // note.finishby = dateFns.distanceInWordsToNow(new Date(), note.finishby)
-       // new Date(note.finishby).getTime() > new Date().getTime() ? note.finishby : new Date().format("dd-mm-yyyy")
+        // new Date(note.finishby).getTime() > new Date().getTime() ? note.finishby : new Date().format("dd-mm-yyyy")
         items.push(note)
-        Model.saveItems(items)
+        this.model.saveItems(items)
       }
+    }
+    handleSortButtons(e, sortButtons) {
+      const value = sortButtons.find(el => el.checked).value
+      this.setItem('sort', value)
     }
     sortItems(items, sortBy) {
       if (sortBy === 'finishby') {
@@ -68,15 +160,19 @@ const Controller = (function() {
       if (!showAll) {
         items = items.filter(item => item.finished !== true)
       }
-      
+
       items = items.map(item => {
-        item.finishby = dateFns.distanceInWordsToNow(item.finishby, new Date())
+        item.finishby = dateFns.distanceInWordsToNow(
+          item.finishby,
+          new Date(),
+          { locale: dateFns.eoLocale }
+        )
         return item
       })
-      
+
       items = this.sortItems(items, sortBy)
-      View.render(items)
+      this.view.render(items)
     }
   }
-  return new Controller()
+  return Controller
 })()
