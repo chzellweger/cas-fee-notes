@@ -7,46 +7,47 @@ const Controller = (function() {
       this.model = model
       this.view = view
 
-      this.handleStyleChanger = this.handleStyleChanger.bind(this)
-      this.handleSetFinished = this.handleSetFinished.bind(this)
-      this.handleSortButtons = this.handleSortButtons.bind(this)
-      this.handleToggleShowFinished = this.handleToggleShowFinished.bind(this)
+      this._appState = {
+        filter: this._getData('filter') || false,
+        notes: this._getData('notes') || [],
+        sortby: this._getData('sort') || 'finish_date',
+        style: this._getData('style') || 'day'
+      }
 
       this.render = this.render.bind(this)
-
-      this.styleListener = this.styleListener.bind(this)
-      this.setCount = this.setCount.bind(this)
-
-      this.getItem = this.getItem.bind(this)
-      this.setItem = this.setItem.bind(this)
-      this.getItems = this.getItems.bind(this)
-      this.setItems = this.setItems.bind(this)
-
-      this.createItems = this.createItems.bind(this)
-
-      this.sortItems = this.sortItems.bind(this)
     }
-    init() {
-      this.view.initStyleListener(this.styleListener)
 
+    init() {
+      this.view.initRouter()
+
+      
       if (this.view._styleChanger) {
         console.log('main page')
-        this.setCount()
-
+        this.view.initStyleListener(this.styleListener.bind(this))
+        
         this.view.initStyleChanger(
-          this.handleStyleChanger,
-          this.getItem('style')
+          this.handleStyleChanger.bind(this),
+          this._appState.style
         )
-        this.view.initSetFinished(this.handleSetFinished)
-        this.view.initSortButtons(this.handleSortButtons)
-        this.view.initToggleShowFinished(
-          this.handleToggleShowFinished,
-          this.getItem('filter')
+        
+        this._setCount()
+
+        this.view.initSortButtons(
+          this.handleSortButtons.bind(this),
+          this._appState.sortby
         )
+
+        this.view.initToggleShowFinishedItems(
+          this.handleToggleShowFinishedItems.bind(this),
+          this._appState.filter
+        )
+
+        this.view.initSetItemAsFinished(this.handleSetItemAsFinished.bind(this))
 
         this.view.initHandlebars()
 
-        this.render(this.getItems())
+        // initial render
+        this.render()
       }
 
       if (window.location.search.substring(1)) {
@@ -54,121 +55,173 @@ const Controller = (function() {
         this.createItems(helpers.getQueryStringAsObject())
       }
     }
-    handleSetFinished(targetMarkup, e) {
-      const contentList = targetMarkup
-      if (e.target && e.target.matches('input[name="finish"]')) {
-        this.markAsFinished(e.target.id)
+
+    handleStyleChanger(e) {
+      this._setData('style', e.target.value)
+
+      document.body.className = e.target.value
+    }
+
+    styleListener() {
+      const style = this._appState.style
+
+      document.body.className = style
+
+      if (this.view._styleChanger) this.view._styleChanger.value = style
+    }
+
+    handleSortButtons(sortButtons, event) {
+      const value = event.target.value
+        ? event.target.value
+        : event.target.parentNode.previousElementSibling.value
+
+      if (value) {
+        this._appState.sortby = value
+        this.render()
+
+        this._setData('sortby', value)
       }
     }
-    markAsFinished(id) {
+
+    handleSetItemAsFinished(targetMarkup, e) {
+      const contentList = targetMarkup
+      if (e.target && e.target.matches('input[name="finish"]')) {
+        this._markItemAsFinished(e.target.id)
+      }
+    }
+
+    handleToggleShowFinishedItems() {
+      const filter = this._appState.filter
+
+      const newFilter = !filter
+
+      this._appState.filter = newFilter
+      this.render()
+
+      this._setData('filter', newFilter)
+    }
+    
+    _markItemAsFinished(id) {
       const findItem = el => el.id.toString() === id
 
-      const items = this.model.getItems()
+      const items = this._getData('notes')
 
       const item = items.find(findItem)
+
       const index = items.findIndex(findItem)
 
       const modifiedItem = Object.assign(item, { finished: !item.finished })
 
       items[index] = modifiedItem
 
-      this.model.saveItems(items, this.render)
+      this._setData('notes', items, this.render.bind(this))
     }
-    handleToggleShowFinished() {
-      const filter = this.getItem('filter')
-      const newFilter = !filter
 
-      this.setItem('filter', newFilter)
-    }
-    setCount() {
-      const items = this.getItems()
+    _setCount() {
+      const items = this._getData('notes') || []
       const postFix = items.length === 1 ? 'Notiz' : 'Notizen'
 
       this.view._count.innerText = `${items.length} ${postFix}`
     }
-    handleStyleChanger(e) {
-      this.setItem('style', e.target.value)
-      document.body.className = e.target.value
+
+
+    _getData(key) {
+      return this.model.get(key)
     }
-    styleListener() {
-      const style = this.getItem('style') || 'day'
-      document.body.className = style
-      if (this.view._styleChanger) this.view._styleChanger.value = style
+
+    _setData(key, item, callback) {
+      console.log('setting data')
+      this.model.set(key, item, callback)
     }
-    getItem(key) {
-      return this.model.getItem(key)
-    }
-    getItems() {
-      return this.model.getItems()
-    }
-    setItems(items) {
-      this.model.setItems(items)
-    }
-    setItem(key, item) {
-      this.model.setItem(key, item, this.render)
-    }
+
     createItems(query) {
-      if (query.mode) {
+      if (query.mode === 'edit') {
         this.view.fillFields(
-          this.model.getItems().find(el => el.id.toString() === query.id)
+          this._getData('notes').find(el => el.id.toString() === query.id)
         )
         return
         // implement edit mode
       }
 
-      const items = this.model.getItems()
+      const items = this._getData('notes') || []
+
       const note = query
 
       if (note) {
-        note.id = new Date().getTime()
-        note.importance = note.importance || 1
+        note.finish_date = Date.parse(note.finish_date)
+
+        note.id = Math.floor(new Date().getTime() * Math.random())
+
+        note.createdAt = new Date().getTime()
+
+        note.importance = parseInt(note.importance, 10) || 1
+
         note.finished = false
-        // note.finishby = dateFns.distanceInWordsToNow(new Date(), note.finishby)
-        // new Date(note.finishby).getTime() > new Date().getTime() ? note.finishby : new Date().format("dd-mm-yyyy")
+
         items.push(note)
-        this.model.saveItems(items)
+
+        this.model.set('notes', items)
       }
     }
-    handleSortButtons(e, sortButtons) {
-      const value = sortButtons.find(el => el.checked).value
-      this.setItem('sort', value)
-    }
-    sortItems(items, sortBy) {
+
+    _sortItems(items, sortBy) {
       if (sortBy === 'finishby') {
         items = items.sort((a, b) => {
-          return a[sortBy] > b[sortBy]
+          return a[sortBy] - b[sortBy]
         })
       } else {
         items = items.sort((a, b) => {
-          return a[sortBy] < b[sortBy]
+          if (a[sortBy] > b[sortBy]) {
+            return -1
+          }
+          if (a[sortBy] < b[sortBy]) {
+            return 1
+          }
+          return 0
         })
+        return items
       }
-      return items
     }
-    render() {
-      // get app state
-      const showAll = this.getItem('filter')
-      const sortBy = this.getItem('sort')
 
-      let items = this.getItems('notes')
-
-      // setup items according to state
-      if (!showAll) {
-        items = items.filter(item => item.finished !== true)
-      }
-
+    _prettifyDates(items) {
       items = items.map(item => {
-        item.finishby = dateFns.distanceInWordsToNow(
-          item.finishby,
-          new Date(),
-          { locale: dateFns.eoLocale }
+        item.literal_finish_date = dateFns.getDay(item.finish_date)
+
+        item.finish_date = dateFns.format(
+          dateFns.parse(item.finish_date),
+          'DD.MM. YYYY'
         )
+
         return item
       })
+      return items
+    }
 
-      items = this.sortItems(items, sortBy)
-      this.view.render(items)
+    _filter(items) {
+      const showAll = this._appState.filter
+
+      if (!showAll) {
+        return items.filter(item => item.finished !== true)
+      }
+
+      return items
+    }
+
+    render() {
+      // get app state
+      const items = this._appState.notes
+      const sortBy = this._appState.sortby
+
+      // filter, prettify, sort, and render items
+      this.view.render(
+        this._sortItems(
+          this._prettifyDates(
+            this._filter(items),
+            sortBy)
+          )
+        )
     }
   }
+
   return Controller
 })()

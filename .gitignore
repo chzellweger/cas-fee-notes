@@ -2,3 +2,4 @@ project.pdf
 node_modules
 color_scheme.txt
 .eslintrc
+.vscode

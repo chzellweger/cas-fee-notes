@@ -12,25 +12,25 @@
 
   <body>
     <header>
-      <h1>Add/Edit note</h1>
-      <p><a href="../index/index.html">Back</a></p>
+      <h1>Notiz hinzufügen/bearbeiten</h1>
+      <p><a href="../index/index.html#list">Zurück zur Übersicht</a></p>
     </header>
 
     <main>
       <form action="add.html" method="get">
 
         <div>
-          <label for="title">Title</label>
-          <input id="title" name='title' type='text' placeholder="your title" required/>
+          <label for="title">Titel</label>
+          <input id="title" name='title' type='text' placeholder="Ihr Titel..." required/>
         </div>
 
         <div>
-          <label for="content">Content</label>
-          <textarea id="content" name='content' type='text' placeholder="your note" cols=50 required/></textarea>
+          <label for="content">Inhalt</label>
+          <textarea id="content" name='content' type='text' placeholder="Ihre Notiz..." cols=50 required/></textarea>
         </div>
 
         <div>
-          <legend>Importance</legend>
+          <legend>Wichtigkeit</legend>
           <div>
             <input id="1" name='importance' type='radio' value="1" />
             <label for='1'>*</label>
@@ -46,16 +46,16 @@
         </div>
 
         <div>
-          <label for="date">Erledigt bis:</label>
-          <input id="date" name="finishby" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span>
+          <label for="date">Zu erledigen bis:</label>
+          <input id="date" name="finish_date" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span>
         </div>
 
         <div>
-          <button type="submit">Add/Edit note</button>
+          <button type="submit">hinzufügen/bearbeiten</button>
         </div>
 
         <div>
-          <button type="reset">Cancel</button>
+          <button type="reset">Felder leeren</button>
         </div>
       </form>
     </main>
