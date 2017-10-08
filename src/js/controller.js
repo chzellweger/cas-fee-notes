@@ -211,14 +211,14 @@ const Controller = (function() {
       // get app state
       const items = this._appState.notes
       const sortBy = this._appState.sortby
-
+      
       // filter, prettify, sort, and render items
       this.view.render(
         this._sortItems(
           this._prettifyDates(
             this._filter(items),
+            ),
             sortBy)
-          )
         )
     }
   }
