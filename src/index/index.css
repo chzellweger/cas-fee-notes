@@ -39,6 +39,7 @@ nav label {
 article {
   border-bottom: 2px solid rgba(29, 29, 38, 0.05);
   margin-bottom: 0.5rem;
+  background-color: rgba(255, 127, 80, 0.35)
 }
 
 article > div:first-child {
@@ -61,4 +62,5 @@ article > div:last-child {
 
 summary {
   border-top: 1px solid rgba(29, 29, 38, 0.05);
+  background-color: rgba(255, 127, 80, 0.67)
 }

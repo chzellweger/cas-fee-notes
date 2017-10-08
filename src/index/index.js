@@ -1,15 +1,8 @@
-'use strict'
-;(function() {
-  // implement number of items
-  const items = helpers.getItems('notes')
+/* global Model View Controller */
+;(function () {
+  const model = new Model()
+  const view = new View()
 
-  const postFix = items.length === 1 ? 'Notiz' : 'Notizen'
-
-  const count = document.getElementById('count')
-  count.innerText = `${items.length} ${postFix}`
-
-  // setup style-changing-functionality
-  helpers.initStyleChanger()
-  helpers.initStyleListener()
-
+  const controller = new Controller(model, view)
+  controller.init()
 })()

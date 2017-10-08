@@ -1,137 +1,158 @@
 <!DOCTYPE html>
 <html lang="de">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>doit.io – my CAS-FEE-to-do-App</title>
-  <link rel="stylesheet" type="text/css" href="global.css">
-  <link rel="stylesheet" type="text/css" href="index.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>doit.io – my CAS-FEE-to-do-App</title>
+    <link rel="stylesheet" type="text/css" href="global.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <style>
+    #spinner {
+      width: 40px;
+      height: 40px;
+    
+      position: relative;
+      margin: 100px auto;
+    }
 
-<body>
-  <header>
-    <div><span id="count">0 Notizen</span></div>
-    <div>
-      <a href="../add/add.html">create new note</a>
-    </div>
-    <div>
-      <label for="select-style">
-        <span>Select Style:</span>
-          <select id="select-style" name="style">
-            <option value="day">day mode</option>
-            <option value="night">night mode</option>
-          </select>
-      </label>
-    </div>
-  </header>
+    #spinner.hidden {
+      display: none;
+    }
+    
+    .double-bounce1, .double-bounce2 {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #333;
+      opacity: 0.6;
+      position: absolute;
+      top: 0;
+      left: 0;
+      
+      -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+      animation: sk-bounce 2.0s infinite ease-in-out;
+    }
+    
+    .double-bounce2 {
+      -webkit-animation-delay: -1.0s;
+      animation-delay: -1.0s;
+    }
+    
+    @-webkit-keyframes sk-bounce {
+      0%, 100% { -webkit-transform: scale(0.0) }
+      50% { -webkit-transform: scale(1.0) }
+    }
+    
+    @keyframes sk-bounce {
+      0%, 100% { 
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+      } 50% { 
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+      }
+    }
+    </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      console.log("DOM fully loaded and parsed");
+    });
+    </script>
+  </head>
 
-  <nav>
-    <div>
+  <body>
+    <header>
+      <div><span id="count">0 Notizen</span></div>
+      <div style="display: flex;">
+        <a href="../index/index.html#edit">Neue Notiz erstellen</a>
+        <!--<a href="../add/add.html">Neue Notiz erstellen</a>-->
+      </div>
       <div>
-        <input id="finish-date" type="radio" name="sorting" value="finish">
-        <label for="finish-date">
-          <span>by finish date</span>
+        <label for="select-style">
+          <span>Stil auswählen:</span>
+            <select id="select-style" name="style">
+              <option value="day">Tag-Modus</option>
+              <option value="night">Nacht-Modus</option>
+            </select>
         </label>
       </div>
-      <div>
-        <input id="created" type="radio" name="sorting" value="created">
-        <label for="created">
-            <span>by created date</span>
-          </label>
-      </div>
-      <div>
-        <input id="sorting" type="radio" name="sorting" value="importance">
-        <label for="sorting">
-            <span>by importance</span>
-          </label>
-      </div>
-    </div>
+    </header>
 
-    <div>
-      <div>
-        <input id="toggle-finished" type="checkbox">
-        <label for="toggle-finished"><span>toggle finished</span></label>
-      </div>
-    </div>
-  </nav>
-
-  <main>
-    <article>
+    <nav>
       <div>
         <div>
-          <span>Finish by {{date}}</span>
-          <label>
-            <input id="element-1" type="checkbox">
-            <span>Finished <span>{{date}}</span> 
+          <input id="finish_date" type="radio" name="sorting" value="finish_date">
+          <label for="finish-date">
+            <span>zu erledigen bis</span>
           </label>
         </div>
         <div>
-          <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
-        </div>
-      </div>
-      <div>
-        <details>
-          <summary>Item 1 - Title</summary>
-          <p>Some more info about it</p>
-        </details>
-      </div>
-      <div>
-        <a href="">edit</a>
-      </div>
-    </article>
-
-    <article>
-      <div>
-        <div>
-          <span>Finish by {{date}}</span>
-          <label>
-              <input id="element-1" type="checkbox">
-              <span>Finished <span>{{date}}</span> 
+          <input id="created_at" type="radio" name="sorting" value="created_at">
+          <label for="created">
+              <span>erstellt am</span>
             </label>
         </div>
         <div>
-          <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
+          <input id="sorting" type="radio" name="sorting" value="importance">
+          <label for="sorting">
+              <span>Wichtigkeit</span>
+            </label>
         </div>
       </div>
-      <div>
-        <details>
-          <summary>Item 2- Title </summary>
-          <p>Some more info about it</p>
-        </details>
-      </div>
-      <div>
-        <a href="">edit</a>
-      </div>
-    </article>
 
-    <article>
       <div>
         <div>
-          <span>Finish by {{date}}</span>
-          <label>
-                <input id="element-1" type="checkbox">
-                <span>Finished <span>{{date}}</span> 
-              </label>
+          <input id="toggle-finished" type="checkbox">
+          <label for="toggle-finished"><span>erledigte ein-/ausblenden</span></label>
+        </div>
+      </div>
+    </nav>
+
+    <main id="rendered-content">
+        <div id="spinner">
+          <div class="double-bounce1"></div>
+          <div class="double-bounce2"></div>
+        </div>
+    </main>
+    
+    <script id="note-template" type="text/x-handlebars-template">
+      <div>
+      {{#each items}}
+      <article>
+        <div>
+          <div>
+            <span>zu erledigen bis {{ literal_finish_date }} ({{ finish_date }})</span>
+            <label>
+                  <input id="{{ id }}" name="finish" type="checkbox" {{#if finished}}checked{{/if}}>
+                  <span>erledigt <span></span> 
+                </label>
+          </div>
+          <div>
+            <span>{{#repeat importance}}<span>&#9889;</span>{{/repeat}}</span>
+          </div>
         </div>
         <div>
-          <span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span><span>&#9889;</span></span>
+          <details>
+            <summary>{{ title }} </summary>
+            <p><pre>{{ content }}{{ importance }}{{ id }}</pre></p>
+          </details>
         </div>
-      </div>
-      <div>
-        <details>
-          <summary>Item 3 - Title </summary>
-          <p>Some more info about it</p>
-        </details>
-      </div>
-      <div>
-        <a href="">edit</a>
-      </div>
-    </article>
-  </main>
-  <script src="helpers.js"></script>
-  <script src="index.js"></script>
-</body>
-
+        <div>
+          <a href="../add/add.html?mode=edit&id={{id}}">edit</a>
+        </div>
+      </article>
+      {{/each}}
+    </div>
+    </script>
+    <script src="http://cdn.date-fns.org/v2.0.0-alpha0/date_fns.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+    <script src="helpers.js"></script>
+    <script src="../js/Model.js"></script>
+    <script src="../js/View.js"></script>
+    <script src="../js/Controller.js"></script>
+    <script src="../js/App.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
