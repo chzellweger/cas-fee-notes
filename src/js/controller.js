@@ -7,30 +7,40 @@ const Controller = (function() {
       this.model = model
       this.view = view
 
-      this._appState = {
-        filter: this._getData('filter') || false,
-        notes: this._getData('notes') || [],
-        sortby: this._getData('sort') || 'finish_date',
-        style: this._getData('style') || 'day'
-      }
-
       this.render = this.render.bind(this)
     }
 
-    init() {
+    async init() {
+      await Promise.all([
+        this._getData('filter'),
+        this._getData('notes'),
+        this._getData('sortby'),
+        this._getData('style')
+      ]).then(promises => {
+        this._appState = {
+          filter: promises[0] || false,
+          notes: promises[1] || [],
+          sortby: promises[2] || 'finish_date',
+          style: promises[3] || 'day'
+        }
+      })
+
       this.view.initRouter()
 
-      
+      this.view.initStyleListener(
+        this.styleListener.bind(this),
+        this._appState.style
+      )
+
       if (this.view._styleChanger) {
         console.log('main page')
-        this.view.initStyleListener(this.styleListener.bind(this))
-        
+
         this.view.initStyleChanger(
           this.handleStyleChanger.bind(this),
           this._appState.style
         )
-        
-        this._setCount()
+
+        this._setCount(this._appState.notes)
 
         this.view.initSortButtons(
           this.handleSortButtons.bind(this),
@@ -97,11 +107,11 @@ const Controller = (function() {
 
       this._setData('filter', newFilter, this.render)
     }
-    
+
     _markItemAsFinished(id) {
       const findItem = el => el.id.toString() === id
 
-      const items = this._getData('notes')
+      const items = this._appState.notes
 
       const item = items.find(findItem)
 
@@ -115,36 +125,39 @@ const Controller = (function() {
       setTimeout(this._setData.bind(this, 'notes', items, this.render), 300)
     }
 
-    _setCount() {
-      const items = this._getData('notes') || []
+    _setCount(items) {
+      // const items = this._getData('notes') || []
       const postFix = items.length === 1 ? 'Notiz' : 'Notizen'
 
-      this.view._count.innerText = `${items.length} ${postFix}`
+      this.view.setCount(`${items.length} ${postFix}`)
     }
-
 
     _getData(key) {
       return this.model.get(key)
     }
 
     _setData(key, item, callback) {
+      console.log('setting data...')
       this._appState[key] = item
 
       // optimistically render new app-state
-      if (callback) callback()
+      if (callback) {
+        callback()
+      }
 
-      console.log('setting data')
       // store new app-state
+      console.log('storing...')
       this.model.set(key, item)
     }
-
+    _editItem(query) {
+      this.view.fillFields(
+        this._appState.notes.find(el => el.id.toString() === query.id)
+      )
+      // implement edit mode
+    }
     createItems(query) {
       if (query.mode === 'edit') {
-        this.view.fillFields(
-          this._getData('notes').find(el => el.id.toString() === query.id)
-        )
-        return
-        // implement edit mode
+        this._editItem(query)
       }
 
       const items = this._getData('notes') || []
@@ -188,21 +201,33 @@ const Controller = (function() {
     }
 
     _prettifyDates(items) {
-      items = items.map(item => {
-        item.literal_finish_date = dateFns.getDay(item.finish_date)
+      return items.map(item => {
+        const finishDate = item.finish_date
+        const prefix = 'nächsten'
+        const postfix = ', '
 
         item.pretty_finish_date = dateFns.format(
           dateFns.parse(item.finish_date),
           'DD.MM. YYYY'
         )
 
+        if (
+          dateFns.isSameWeek(new Date().getTime(), item.finish_date) &&
+          dateFns.isAfter(item.finish_date, new Date().getTime())
+        ) {
+          const day = dateFns.getDay(item.finish_date)
+
+          item.literal_finish_date = helpers.formatDay(day, prefix, postfix)
+        } else {
+          item.literal_finish_date = ''
+        }
         return item
       })
-      return items
     }
 
     _filter(items) {
       const showAll = this._appState.filter
+
       if (!showAll) {
         return items.filter(item => item.finished !== true)
       }
@@ -211,18 +236,16 @@ const Controller = (function() {
     }
 
     render() {
+      console.log('(re-)rendering...')
+
       // get app state
       const items = this._appState.notes
       const sortBy = this._appState.sortby
-      
+
       // filter, prettify, sort, and render items
       this.view.render(
-        this._sortItems(
-          this._prettifyDates(
-            this._filter(items),
-            ),
-            sortBy)
-        )
+        this._sortItems(this._prettifyDates(this._filter(items)), sortBy)
+      )
     }
   }
 

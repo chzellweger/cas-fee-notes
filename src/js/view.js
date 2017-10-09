@@ -38,7 +38,8 @@ const View = (function() {
       this._createHtml = Handlebars.compile(this._source)
     }
 
-    initStyleListener(handler) {
+    initStyleListener(handler, style) {
+      document.body.classList.add(style)
       window.addEventListener('DOMContentLoaded', handler)
     }
 
@@ -59,8 +60,9 @@ const View = (function() {
 
     initSortButtons(handler, initialValue) {
       initialValue = initialValue || 'finish_date'
-      
-      document.getElementById(initialValue).checked = true
+      console.log(initialValue)
+
+      $qs(`#${initialValue}`).checked = true
 
       this._sortButtons.addEventListener(
         'click',
@@ -68,6 +70,9 @@ const View = (function() {
       )
     }
 
+    setCount(content) {
+      this._count.innerText = content
+    }
     fillFields(item) {
       this._title.value = item.title
 

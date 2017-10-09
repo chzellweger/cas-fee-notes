@@ -61,14 +61,36 @@ const helpers = (function(window) {
     }
     return str
   }
+
   function $querySelector(selector) {
     return document.querySelector(selector)
   }
+
   function $querySelectorAll(selector) {
     return document.querySelectorAll(selector)
   }
 
+  function formatDay(day, prefix ='', postfix = '') {
+    switch (day) {
+      case 0:
+        return '' + prefix + ' Sonntag' + postfix
+      case 1:
+        return '' + prefix + ' Montag' + postfix
+      case 2:
+        return '' + prefix + ' Dienstag' + postfix
+      case 3:
+        return '' + prefix + ' Mittwoch' + postfix
+      case 4:
+        return '' + prefix + ' Donnerstag' + postfix
+      case 5:
+        return '' + prefix + ' Freitag' + postfix
+      case 6:
+        return '' + prefix + ' Samstag' + postfix
+      default:
+        return ''
+  }}
   return {
+    formatDay,
     $querySelector,
     $querySelectorAll,
     getQueryStringAsObject,

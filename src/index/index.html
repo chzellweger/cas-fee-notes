@@ -95,8 +95,8 @@
             </label>
         </div>
         <div>
-          <input id="sorting" type="radio" name="sorting" value="importance">
-          <label for="sorting">
+          <input id="importance" type="radio" name="sorting" value="importance">
+          <label for="importance">
               <span>Wichtigkeit</span>
             </label>
         </div>
@@ -123,7 +123,7 @@
       <article>
         <div>
           <div>
-            <span>zu erledigen bis {{ literal_finish_date }} ({{ pretty_finish_date }})</span>
+            <span>zu erledigen bis {{ literal_finish_date }} {{ pretty_finish_date }}</span>
             <label>
                   <input id="{{ id }}" name="finish" type="checkbox" {{#if finished}}checked{{/if}}>
                   <span>erledigt <span></span> 
