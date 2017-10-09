@@ -79,7 +79,7 @@ const Controller = (function() {
         this._appState.sortby = value
         this.render()
 
-        this._setData('sortby', value)
+        this._setData('sortby', value, this.render)
       }
     }
 
@@ -95,10 +95,7 @@ const Controller = (function() {
 
       const newFilter = !filter
 
-      this._appState.filter = newFilter
-      this.render()
-
-      this._setData('filter', newFilter)
+      this._setData('filter', newFilter, this.render)
     }
     
     _markItemAsFinished(id) {
@@ -114,7 +111,8 @@ const Controller = (function() {
 
       items[index] = modifiedItem
 
-      this._setData('notes', items, this.render.bind(this))
+      // set short timeout before render for better visual feedback
+      setTimeout(this._setData.bind(this, 'notes', items, this.render), 300)
     }
 
     _setCount() {
@@ -130,8 +128,14 @@ const Controller = (function() {
     }
 
     _setData(key, item, callback) {
+      this._appState[key] = item
+
+      // optimistically render new app-state
+      if (callback) callback()
+
       console.log('setting data')
-      this.model.set(key, item, callback)
+      // store new app-state
+      this.model.set(key, item)
     }
 
     createItems(query) {
@@ -160,7 +164,7 @@ const Controller = (function() {
 
         items.push(note)
 
-        this.model.set('notes', items)
+        this._setData('notes', items)
       }
     }
 
@@ -187,7 +191,7 @@ const Controller = (function() {
       items = items.map(item => {
         item.literal_finish_date = dateFns.getDay(item.finish_date)
 
-        item.finish_date = dateFns.format(
+        item.pretty_finish_date = dateFns.format(
           dateFns.parse(item.finish_date),
           'DD.MM. YYYY'
         )
@@ -199,7 +203,6 @@ const Controller = (function() {
 
     _filter(items) {
       const showAll = this._appState.filter
-
       if (!showAll) {
         return items.filter(item => item.finished !== true)
       }
@@ -211,14 +214,14 @@ const Controller = (function() {
       // get app state
       const items = this._appState.notes
       const sortBy = this._appState.sortby
-
+      
       // filter, prettify, sort, and render items
       this.view.render(
         this._sortItems(
           this._prettifyDates(
             this._filter(items),
+            ),
             sortBy)
-          )
         )
     }
   }

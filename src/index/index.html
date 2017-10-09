@@ -66,8 +66,8 @@
     <header>
       <div><span id="count">0 Notizen</span></div>
       <div style="display: flex;">
-        <a href="../index/index.html#edit">Neue Notiz erstellen</a>
-        <!--<a href="../add/add.html">Neue Notiz erstellen</a>-->
+        <!--<a href="../index/index.html#edit">Neue Notiz erstellen</a>-->
+        <a href="../add/add.html">Neue Notiz erstellen</a>
       </div>
       <div>
         <label for="select-style">
@@ -84,13 +84,13 @@
       <div>
         <div>
           <input id="finish_date" type="radio" name="sorting" value="finish_date">
-          <label for="finish-date">
+          <label for="finish_date">
             <span>zu erledigen bis</span>
           </label>
         </div>
         <div>
           <input id="created_at" type="radio" name="sorting" value="created_at">
-          <label for="created">
+          <label for="created_at">
               <span>erstellt am</span>
             </label>
         </div>
@@ -105,7 +105,7 @@
       <div>
         <div>
           <input id="toggle-finished" type="checkbox">
-          <label for="toggle-finished"><span>erledigte ein-/ausblenden</span></label>
+          <label for="toggle-finished"><span>erledigte einblenden</span></label>
         </div>
       </div>
     </nav>
@@ -123,7 +123,7 @@
       <article>
         <div>
           <div>
-            <span>zu erledigen bis {{ literal_finish_date }} ({{ finish_date }})</span>
+            <span>zu erledigen bis {{ literal_finish_date }} ({{ pretty_finish_date }})</span>
             <label>
                   <input id="{{ id }}" name="finish" type="checkbox" {{#if finished}}checked{{/if}}>
                   <span>erledigt <span></span> 
@@ -136,7 +136,12 @@
         <div>
           <details>
             <summary>{{ title }} </summary>
-            <p><pre>{{ content }}{{ importance }}{{ id }}</pre></p>
+            <p>{{title}}</p>
+            <p>{{content}}</p>
+            <p>{{ finish_date}}</p>
+            <p>{{ literal_finish_date}}</p>
+            <p>{{ importance }}</p>
+            <p>{{ createdAt}}</p>
           </details>
         </div>
         <div>

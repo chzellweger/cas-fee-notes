@@ -1,8 +1,9 @@
-/* global Controller Handlebars helpers */
+/* global Controller Handlebars helpers dateFns */
 /* eslint no-unused-vars: "off" */
 
 const View = (function() {
   const $qs = helpers.$querySelector
+  const $qsA = helpers.$querySelectorAll
 
   class View {
     constructor() {
@@ -17,10 +18,10 @@ const View = (function() {
       // form-elements
       this._title = $qs('#title')
       this._content = $qs('#content')
-      this._importance = $qs('#importance')
+      this._importance = $qsA('input[name="importance"]')
       this._finishby = $qs('#date')
 
-      // hook for dynamically renderd content
+      // hook for dynamically rendered content
       this._target = $qs('#rendered-content')
       
       // handlebars-template
@@ -71,12 +72,10 @@ const View = (function() {
       this._title.value = item.title
 
       this._content.value = item.content
-
       Array.from(this._importance).find(
         el => el.value === item.importance.toString()
       ).checked = true
-
-      this._finishby.value = item.finishby
+      this._finishby.value = dateFns.format(dateFns.parse(item.finish_date), 'YYYY-MM-DD')
     }
 
     toggleSpinner() {}
