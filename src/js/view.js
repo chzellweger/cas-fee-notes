@@ -20,6 +20,7 @@ const View = (function() {
       this._content = $qs('#content')
       this._importance = $qsA('input[name="importance"]')
       this._finishby = $qs('#date')
+      this._submitButton = $qs('button[type="submit"]')
 
       // hook for dynamically rendered content
       this._target = $qs('#rendered-content')
@@ -70,9 +71,31 @@ const View = (function() {
       )
     }
 
+    initSubmitButton(handler){
+      if(this._submitButton) {
+        this._submitButton.addEventListener('click', handler)
+      }
+    }
+
     setCount(content) {
       this._count.innerText = content
     }
+
+    collectFields() {
+      const title = this._title = $qs('#title').value
+      const content = this._content = $qs('#content').value
+      const importance = this._importance = [...$qsA('input[name="importance"]')].find(el => el.checked === true).value
+      const finishby = this._finishby = $qs('#date').value
+      
+      const item = {
+        title,
+        content,
+        importance,
+        finishby
+      }
+      return item
+    }
+
     fillFields(item) {
       this._title.value = item.title
 

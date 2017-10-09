@@ -32,6 +32,8 @@ const Controller = (function() {
         this._appState.style
       )
 
+      this.view.initSubmitButton(this.handleSubmitButton.bind(this))
+
       if (this.view._styleChanger) {
         console.log('main page')
 
@@ -64,6 +66,14 @@ const Controller = (function() {
         console.log('add page')
         this.createItems(helpers.getQueryStringAsObject())
       }
+    }
+
+    handleSubmitButton(e) {
+      e.preventDefault()
+      const item = this.view.collectFields()
+      item.id = parseInt(helpers.getQueryVariable('id'), 10)
+
+      this.createItems(item)
     }
 
     handleStyleChanger(e) {
@@ -149,19 +159,23 @@ const Controller = (function() {
       console.log('storing...')
       this.model.set(key, item)
     }
-    _editItem(query) {
+
+    _editItem(query, items) {
+      const item = items.find(el => el.id.toString() === query.id)
       this.view.fillFields(
-        this._appState.notes.find(el => el.id.toString() === query.id)
+        item
       )
-      // implement edit mode
+      console.log(item)
     }
+
     createItems(query) {
-      if (query.mode === 'edit') {
-        this._editItem(query)
+      const items = this._appState.notes || []
+
+      if (query.id) {
+        this._editItem(query, items)
+        return
       }
-
-      const items = this._getData('notes') || []
-
+      
       const note = query
 
       if (note) {
