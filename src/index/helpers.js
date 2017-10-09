@@ -64,9 +64,13 @@ const helpers = (function(window) {
   function $querySelector(selector) {
     return document.querySelector(selector)
   }
+  function $querySelectorAll(selector) {
+    return document.querySelectorAll(selector)
+  }
 
   return {
     $querySelector,
+    $querySelectorAll,
     getQueryStringAsObject,
     getQueryVariable,
     handlebarsRepeatHelper
