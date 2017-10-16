@@ -4,7 +4,7 @@
   "description": "```bash git clone https://github.com/chzellweger/cas-fee-notes.git cd cas-fee-notes npm install ```",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "",
     "start": "node index.js"
   },
   "repository": {
@@ -18,9 +18,9 @@
   },
   "homepage": "https://github.com/chzellweger/cas-fee-notes#readme",
   "dependencies": {
-    "serve": "^6.1.0"
   },
   "devDependencies": {
+    "serve": "^6.1.0",
     "eslint": "^4.8.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-config-standard": "^10.2.1",
@@ -28,6 +28,7 @@
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.0.1",
+    "prettier": "^1.7.4"
   }
 }

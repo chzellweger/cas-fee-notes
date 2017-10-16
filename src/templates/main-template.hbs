@@ -1,0 +1,83 @@
+  <header>
+    <div>
+      <span id="count">0 Notizen</span>
+    </div>
+    <div style="display: flex;">
+      <a href="#add">Neue Notiz erstellen</a>
+    </div>
+    <div>
+      <label for="select-style">
+        <span>Stil auswählen:</span>
+        <select id="select-style" name="style">
+          <option value="day">Tag-Modus</option>
+          <option value="night">Nacht-Modus</option>
+        </select>
+      </label>
+    </div>
+  </header>
+
+  <nav>
+    <div>
+      <div class='option'>
+        <input id="finish_date" type="radio" name="sorting" value="finish_date">
+        <label for="finish_date">
+          <span>zu erledigen bis</span>
+        </label>
+      </div>
+      <div class='option'>
+        <input id="created_at" type="radio" name="sorting" value="created_at">
+        <label for="created_at">
+          <span>erstellt am</span>
+        </label>
+      </div>
+      <div class='option'>
+        <input id="importance" type="radio" name="sorting" value="importance">
+        <label for="importance">
+          <span>Wichtigkeit</span>
+        </label>
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <input id="toggle-finished" type="checkbox">
+        <label for="toggle-finished">
+          <span>erledigte einblenden</span>
+        </label>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    {{#each items}}
+      <article>
+        <div>
+          <div>
+            <span>zu erledigen bis {{ literalDueDate }} {{ prettyDueDate }}</span>
+            <label>
+                  <input data-id="{{ id }}" name="finish" type="checkbox" {{#if isFinished}}checked{{/if}}>
+                  <span>erledigt <span></span> 
+                </label>
+          </div>
+          <div>
+            <span>{{#repeat importance}}<span>&#9889;</span>{{/repeat}}</span>
+          </div>
+        </div>
+        <div>
+          <details>
+            <summary>{{ title }} </summary>
+            <p>{{ title }}</p>
+            <p>{{ content }}</p>
+            <p>{{ finish_date }}</p>
+            <p>{{ literal_finish_date }}</p>
+            <p>{{ importance }}</p>
+            <p>{{ createdAt}}</p>
+          </details>
+        </div>
+        <div>
+          <a data-id={{id}} href="#edit">edit</a>
+        </div>
+      </article>
+      {{/each}}
+      
+  </main>

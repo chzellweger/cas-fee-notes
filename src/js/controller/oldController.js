@@ -1,16 +1,17 @@
 /* global Model View helpers dateFns */
 /* eslint no-unused-vars: "off" */
+import data from './data'
+import model from './model'
 
-const Controller = (function() {
-  class Controller {
-    constructor(model, view) {
-      this.model = model
-      this.view = view
+const controller = {
 
-      this.render = this.render.bind(this)
-    }
+  renderNotes: () => {
+    appState.getAll().map(el=> {
+        createNote(el);
+    })
+  }
 
-    async init() {
+  async init() {
       await Promise.all([
         this._getData('filter'),
         this._getData('notes'),
@@ -24,9 +25,7 @@ const Controller = (function() {
           style: promises[3] || 'day'
         }
       })
-
-      this.view.initRouter()
-
+      
       this.view.initStyleListener(
         this.styleListener.bind(this),
         this._appState.style
@@ -68,12 +67,28 @@ const Controller = (function() {
       }
     }
 
+    // #methods
+    // ## render
+    render() {
+      console.log('(re-)rendering...')
+
+      // get app state
+      const items = this._appState.notes
+      const sortBy = this._appState.sortby
+
+      // filter, prettify, sort, and render items
+      this.view.render(
+        this._sortItems(this._prettifyDates(this._filter(items)), sortBy)
+      )
+    }
+
+    // ##view-handlers
     handleSubmitButton(e) {
       e.preventDefault()
       const item = this.view.collectFields()
       item.id = parseInt(helpers.getQueryVariable('id'), 10)
 
-      this.createItems(item)
+      this._createItems(item)
     }
 
     handleStyleChanger(e) {
@@ -97,7 +112,6 @@ const Controller = (function() {
 
       if (value) {
         this._appState.sortby = value
-        this.render()
 
         this._setData('sortby', value, this.render)
       }
@@ -118,6 +132,7 @@ const Controller = (function() {
       this._setData('filter', newFilter, this.render)
     }
 
+    // #business-logic
     _markItemAsFinished(id) {
       const findItem = el => el.id.toString() === id
 
@@ -128,9 +143,9 @@ const Controller = (function() {
       const index = items.findIndex(findItem)
 
       const modifiedItem = Object.assign(item, { finished: !item.finished })
-
+      
       items[index] = modifiedItem
-
+      
       // set short timeout before render for better visual feedback
       setTimeout(this._setData.bind(this, 'notes', items, this.render), 300)
     }
@@ -147,7 +162,7 @@ const Controller = (function() {
     }
 
     _setData(key, item, callback) {
-      console.log('setting data...')
+      console.trace('setting data...')
       this._appState[key] = item
 
       // optimistically render new app-state
@@ -168,7 +183,7 @@ const Controller = (function() {
       console.log(item)
     }
 
-    createItems(query) {
+    _createItems(query) {
       const items = this._appState.notes || []
 
       if (query.id) {
@@ -248,20 +263,6 @@ const Controller = (function() {
 
       return items
     }
-
-    render() {
-      console.log('(re-)rendering...')
-
-      // get app state
-      const items = this._appState.notes
-      const sortBy = this._appState.sortby
-
-      // filter, prettify, sort, and render items
-      this.view.render(
-        this._sortItems(this._prettifyDates(this._filter(items)), sortBy)
-      )
-    }
   }
-
-  return Controller
-})()
+  
+  export default Controller

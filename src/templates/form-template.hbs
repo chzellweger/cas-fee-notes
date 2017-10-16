@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<html lang="de">
-
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="../index/global.css">
-    <link rel="stylesheet" type="text/css" href="add.css">
-    <title>doit.io – my CAS-FEE-to-do-App</title>
-  </head>
-
-  <body>
     <header>
       <h1>Notiz hinzufügen/bearbeiten</h1>
-      <p><a href="../index/index.html#list">Zurück zur Übersicht</a></p>
+      <p><a href="#main">Zurück zur Übersicht</a></p>
     </header>
 
     <main>
-      <form action="add.html" method="get">
+      <form>
 
         <div>
           <label for="title">Titel</label>
@@ -47,7 +34,7 @@
 
         <div>
           <label for="date">Zu erledigen bis:</label>
-          <input id="date" name="finish_date" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span>
+          <input id="due-date" name="due-date" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span>
         </div>
 
         <div>
@@ -59,11 +46,3 @@
         </div>
       </form>
     </main>
-    <script src="http://cdn.date-fns.org/v2.0.0-alpha0/date_fns.min.js"></script>
-    <script src="../index/helpers.js"></script>
-    <script src="../js/Model.js"></script>
-    <script src="../js/View.js"></script>
-    <script src="../js/Controller.js"></script>
-    <script src="add.js"></script>
-  </body>
-</html>

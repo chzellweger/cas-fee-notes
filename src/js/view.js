@@ -28,12 +28,7 @@ const View = (function() {
       // handlebars-template
       this._source = $qs('#note-template') && $qs('#note-template').innerHTML
     }
-
-
-    initRouter() {
-      window.addEventListener('hashchange', () => console.log('hashchanged'))
-    }
-
+    
     initHandlebars() {
       Handlebars.registerHelper('repeat', helpers.handlebarsRepeatHelper)
       this._createHtml = Handlebars.compile(this._source)
@@ -41,34 +36,38 @@ const View = (function() {
 
     initStyleListener(handler, style) {
       document.body.classList.add(style)
+
       window.addEventListener('DOMContentLoaded', handler)
     }
 
     initStyleChanger(handler, style) {
       this._styleChanger.value = style
+
       this._styleChanger.addEventListener('change', handler)
     }
 
     initToggleShowFinishedItems(handler, filter = false) {
       this._toggleShowFinishedButton.checked = filter
+
       this._toggleShowFinishedButton.addEventListener('change', handler)
     }
 
     initSetItemAsFinished(handler) {
       const contentList = this._target
-      contentList.addEventListener('click', handler.bind(null, contentList))
+
+      const boundHandler = handler.bind(null, contentList)
+
+      contentList.addEventListener('click', boundHandler)
     }
 
     initSortButtons(handler, initialValue) {
       initialValue = initialValue || 'finish_date'
-      console.log(initialValue)
-
+      
       $qs(`#${initialValue}`).checked = true
 
-      this._sortButtons.addEventListener(
-        'click',
-        handler.bind(null, this._sortButtons)
-      )
+      const boundHandler = handler.bind(null, this.sortButtons)
+
+      this._sortButtons.addEventListener('click', boundHandler)
     }
 
     initSubmitButton(handler){
