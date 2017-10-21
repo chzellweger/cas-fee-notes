@@ -72,6 +72,7 @@ export default class Controller {
     handlers.setStyle.call(this)
     handlers.setCount.call(this)
     handlers.setSort.call(this)
+    handlers.setToggleFinished.call(this)
 
     this.views.main.sortNotes.addEventListener('click', handlers.onSort.bind(this))
     this.views.main.styleChanger.addEventListener('change', handlers.onStyleChange.bind(this))

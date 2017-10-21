@@ -6,8 +6,7 @@ export default class Note {
     this.note = this._createNote(item)
   }
   _createId() {
-    const a = new Uint32Array(1)
-    const id = window.crypto.getRandomValues(a)
+    const id = Math.random().toString(36).substr(2, 10)
     return `id-${id.toString()}`
   }
   _addCreationDate() {

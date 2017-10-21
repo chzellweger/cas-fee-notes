@@ -23,6 +23,12 @@ function setSort(e) {
   toCheck.checked = true
 }
 
+function setToggleFinished() {
+  const filterStatus = this.model.data.getItem('filterItems')
+  
+  this.views.main.toggleFinished.checked = filterStatus
+}
+
 function onStyleChange(e) {
   console.log('onStyleChange')
   document.body.className = e.target.value
@@ -76,9 +82,7 @@ function onEditNote(e) {
   }
 }
 
-function onSubmitAddForm(e) {
-  e.preventDefault()
-
+function _readFields() {
   let note = {
     title: this.views.form.title.value,
     content: this.views.form.content.value,
@@ -90,6 +94,14 @@ function onSubmitAddForm(e) {
   this.views.form.content.value = ''
   this.views.form.dueDate.value = ''
 
+  return note
+}
+
+function onSubmitAddForm(e) {
+  e.preventDefault()
+
+  let note = _readFields.call(this)
+  
   this.model.notesStorage.addNote(note)
 
   this.model.data.updateItem(
@@ -101,6 +113,9 @@ function onSubmitAddForm(e) {
 function onSubmitEditForm(e) {
   e.preventDefault()
 
+  let note = _readFields.call(this)
+
+  console.log(note)
   console.log(this.editing)
   console.log('i would edit..')
   // to do: implement edit
@@ -111,6 +126,7 @@ export default {
   onSort,
   setSort,
   setStyle,
+  setToggleFinished,
   onStyleChange,
   onFilter,
   onMarkNoteAsFinished,
