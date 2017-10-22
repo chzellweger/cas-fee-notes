@@ -51,6 +51,8 @@ function onSort(e) {
   }
 
   this.model.data.updateItem('sortBy', value)
+
+  this.router.route(window.location.hash)
 }
 
 function onFilter(e) {
