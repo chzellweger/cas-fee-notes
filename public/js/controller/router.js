@@ -1,4 +1,5 @@
 /* global Handlebars */
+
 export default class Router {
   constructor(parent, hook, routes) {
     this.parent = parent
@@ -7,6 +8,7 @@ export default class Router {
     this.templatesCache = {}
   }
   init() {
+    console.log('init router')
     if (!window.location.hash) {
       window.location.hash = '#main'
     }
@@ -18,14 +20,14 @@ export default class Router {
     this.route(window.location.hash)
   }
   render() {
+    console.log('render in router')
     this.parent.render(this.templatesCache[window.location.hash])
   }
   _loadTemplate(route) {
+    console.log('load template')
     const template = this.routes(route)
 
     if (this.templatesCache[route]) {
-      console.log('cached value: ')
-      console.log(this.templatesCache[route])
       this.render()
       return
     }
@@ -41,11 +43,11 @@ export default class Router {
         return res
       })
       .catch(e => {
-        throw new Error(console.trace(e))
+        throw new Error(e)
       })
   }
   route(hash) {
-    console.log(hash)
+    console.log('route')
     this._loadTemplate(hash)
   }
 }

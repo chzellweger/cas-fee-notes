@@ -18,7 +18,7 @@ export default class DataService {
         notes: this.notes
       })
   }
-  updateItem(item, value) {
+  updateItem(item, value, callback) {
     this[item] = value
 
     this.saveAllItems({
@@ -27,6 +27,8 @@ export default class DataService {
       sortBy: this.sortBy,
       notes: this.notes
     })
+
+    if(callback) callback()
   }
   getItem(key) {
     return this[key]

@@ -16,10 +16,8 @@ function setSort(e) {
   let sortBy = this.model.data.getItem('sortBy')
 
   if(sortBy === 'default') { sortBy = 'finish_date' }
-  console.log(sortBy)
-
+  
   const toCheck = [...inputs].find(input => input.value === sortBy)
-  console.log(toCheck)
   toCheck.checked = true
 }
 
@@ -53,12 +51,15 @@ function onSort(e) {
   }
 
   this.model.data.updateItem('sortBy', value)
-  // this.router.route(window.location.hash)
 }
 
 function onFilter(e) {
   console.log('onFilter')
   this.model.data.updateItem('filterItems', e.target.checked)
+
+  console.log(this.model.notesStorage.filterNotes(e.target.checked))
+
+  this.router.route(window.location.hash)
 }
 
 function onMarkNoteAsFinished(e) {
@@ -118,6 +119,7 @@ function onSubmitEditForm(e) {
   console.log(note)
   console.log(this.editing)
   console.log('i would edit..')
+  this.editing = null
   // to do: implement edit
 }
 

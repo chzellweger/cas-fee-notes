@@ -51,8 +51,9 @@ export default class NotesStorage {
 
     return this
   }
-  filterNotes() {
-    return this.notes.map(note => note.isFinished === false)
+  filterNotes(showFiltered) {
+    if (showFiltered) return this.notes
+    return this.notes.filter(note => note.getValueOfProperty('isFinished') === false)
   }
   sortNotes(sortBy) {
     console.log('sorting by ' + sortBy)

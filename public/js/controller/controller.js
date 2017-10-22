@@ -29,14 +29,16 @@ export default class Controller {
     Handlebars.registerHelper('repeat', handlebarsRepeatHelper)
   }
   init(hook) {
+    console.log('init controller')
     this.hook = hook
 
     this.router = new Router(this, this.hook, routes)
     this.router.init()
   }
   
-  render(createHTML) {
-    console.log('render')
+  async render(createHTML) {
+    // let createHTML = await this.getHTML()
+    console.log('render in controller')
     let items = {
       items: this.model.notesStorage
         .getAllNotes()
