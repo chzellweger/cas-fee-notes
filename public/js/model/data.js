@@ -1,7 +1,8 @@
 import LocalStorageService from './services/localStorageService.js'
 
-export default class DataService {
+export default class DataStorage {
   constructor(key) {
+
     this.storage = new LocalStorageService('notes')
 
     let dataFromStorage = this.storage.getAll()
@@ -10,13 +11,13 @@ export default class DataService {
     this.filterItems = dataFromStorage.filterItems || false
     this.sortBy = dataFromStorage.sortBy || 'default'
     this.notes = dataFromStorage.notes || []
-    
+
     this.saveAllItems({
-        style: this.style,
-        filterItems: this.filterItems,
-        sortBy: this.sortBy,
-        notes: this.notes
-      })
+      style: this.style,
+      filterItems: this.filterItems,
+      sortBy: this.sortBy,
+      notes: this.notes
+    })
   }
   updateItem(item, value, callback) {
     this[item] = value
@@ -26,18 +27,19 @@ export default class DataService {
       filterItems: this.filterItems,
       sortBy: this.sortBy,
       notes: this.notes
-    })
-
-    if(callback) callback()
+    }, callback)
   }
   getItem(key) {
     return this[key]
   }
-  saveAllItems(toPersist) {
+  saveAllItems(toPersist, callback) {
+    console.log(callback)
     this.style = toPersist.style
     this.filterItems = toPersist.filterItems
     this.sortBy = toPersist.sortBy
     this.notes = toPersist.notes
+
+    if (callback) callback()
 
     this.storage.persist(toPersist)
   }

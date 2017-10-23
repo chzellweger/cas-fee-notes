@@ -25,17 +25,17 @@ export default class NotesStorage {
   updateNote(content, id) {
     console.log('updating')
     let index = this._getIndex(id)
-
-    console.log(this._readNote(id))
-
+   
     if (index === -1) {
       throw new Error('no such note...')
     }
 
     content.id = id
-
+    
+    
     let note = new Note(content)
-
+    
+    
     this.notes[index] = note
 
     return this
@@ -72,13 +72,17 @@ export default class NotesStorage {
         return 0
       })
     }
-    
+
     return this
   }
   getNoteById(id) {
     return this._readNote(id)
   }
-  getAllNotes() {
+  getNotes(settings) {
+    console.trace(settings)
+    if(settings) {
+      return this.filterNotes(settings.filterItems)
+    }
     return this.notes
   }
 }
