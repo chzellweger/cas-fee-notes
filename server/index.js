@@ -1,16 +1,23 @@
-const http = require('http')
-// const url = require('url')
-// const fs = require('fs')
-// const path = require('path')
+const path = require('path')
 
-// const baseDirectory = '../public'
+const express = require('express');
+const bodyParser = require('body-parser')
 
-const PORT = 3005
+const app = express();
+const router = express.Router();
 
-http.createServer(function(req, res) {
- res.writeHead(200)
- res.end()
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
-}).listen(PORT, 'localhost')
+// parse application/json
+app.use(bodyParser.json())
 
-console.log('server running on localhost:' + PORT)
+app.use(router)
+
+app.use(express.static(path.join(__dirname, '../public')))
+
+app.get('/test', (req, res) => res.end('hello world'))
+
+const hostname = '127.0.0.1';
+const port = process.env.PORT || 3010;
+app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });
