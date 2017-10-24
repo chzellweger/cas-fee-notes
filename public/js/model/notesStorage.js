@@ -25,7 +25,7 @@ export default class NotesStorage {
   updateNote(content, id) {
     console.log('updating')
     let index = this._getIndex(id)
-   
+
     if (index === -1) {
       throw new Error('no such note...')
     }
@@ -57,21 +57,25 @@ export default class NotesStorage {
   }
   sortNotes(sortBy) {
     console.log('sorting by ' + sortBy)
-    if (sortBy === 'finishby') {
+    
+    if(sortBy === 'dueDate') {
       this.notes.sort((a, b) => {
-        return a[sortBy] - b[sortBy]
-      })
-    } else {
-      this.notes.sort((a, b) => {
-        if (a[sortBy] > b[sortBy]) {
-          return -1
-        }
-        if (a[sortBy] < b[sortBy]) {
-          return 1
-        }
-        return 0
+        return a.toJSON()['dueDate'] - b.toJSON()['dueDate']
       })
     }
+
+    if(sortBy === 'createdAt') {
+      this.notes.sort((a, b) => {
+        return a.toJSON()['createdAt'] - b.toJSON()['createdAt']
+      })
+    }
+
+    if(sortBy === 'importance') {
+      this.notes.sort((a, b) => {
+        return parseInt(b.toJSON()['importance'],10) - parseInt(a.toJSON()['importance'],10)
+      })
+    }
+    console.log(this.notes)
 
     return this
   }
@@ -81,6 +85,7 @@ export default class NotesStorage {
   getNotes(settings) {
     console.trace(settings)
     if(settings) {
+      this.sortNotes(settings.sortBy)
       return this.filterNotes(settings.filterItems)
     }
     return this.notes

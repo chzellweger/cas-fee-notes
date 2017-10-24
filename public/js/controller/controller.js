@@ -25,7 +25,7 @@ export default class Controller {
       main: {}
     }
 
-    this.editing = 0
+    this.editing = ''
 
     Handlebars.registerHelper('repeat', handlebarsRepeatHelper)
   }

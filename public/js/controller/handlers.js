@@ -13,10 +13,26 @@ function setStyle(e) {
 function setSort(e) {
   const inputs = this.views.main.sortNotes.querySelectorAll('input')
 
-  let sortBy = this.model.data.getItem('sortBy')
+  let value = this.model.data.getItem('sortBy')
 
-  if (sortBy === 'default') {
+  let sortBy = ''
+
+  if (value === 'default') {
     sortBy = 'finish_date'
+  } else {
+    switch (value) {
+      case 'dueDate':
+        sortBy = 'finish_date'
+        break
+      case 'createdAt':
+        sortBy = 'created_at'
+        break
+      case 'importance':
+        sortBy = 'importance'
+        break
+      default:
+        sortBy = 'dueDate'
+    }
   }
 
   const toCheck = [...inputs].find(input => input.value === sortBy)
@@ -36,29 +52,32 @@ function onStyleChange(e) {
 }
 
 function onSort(e) {
-  console.log('onSort')
-  const checked = document.querySelector('input[type=radio]:checked')
-  const value = checked.value
+  setTimeout(() => {
+    console.log('onSort')
+    const checked = document.querySelector('input[type=radio]:checked')
+    const value = checked.value
 
-  const sortNotes = this.model.notesStorage.sortNotes.bind(
-    this.model.notesStorage
-  )
+    const sortNotes = this.model.notesStorage.sortNotes.bind(
+      this.model.notesStorage
+    )
+    let sortBy = ''
 
-  switch (value) {
-    case 'finish_date':
-      sortNotes('dueDate')
-      break
-    case 'created_at':
-      sortNotes('createdAt')
-      break
-    case 'importance':
-      sortNotes('importance')
-      break
-    default:
-      sortNotes('dueDate')
-  }
+    switch (value) {
+      case 'finish_date':
+        sortBy = 'dueDate'
+        break
+      case 'created_at':
+        sortBy = 'createdAt'
+        break
+      case 'importance':
+        sortBy = 'importance'
+        break
+      default:
+        sortNotes('dueDate')
+    }
 
-  this.model.data.updateItem('sortBy', value)
+    this.model.data.updateItem('sortBy', sortBy, this.render.bind(this))
+  }, 0)
 }
 
 function onFilter(e) {
