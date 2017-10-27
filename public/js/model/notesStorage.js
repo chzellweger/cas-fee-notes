@@ -23,7 +23,7 @@ export default class NotesStorage {
     return this
   }
   updateNote(content, id) {
-    console.log('updating')
+    console.log('updating in clients notestorage')
     let index = this._getIndex(id)
 
     if (index === -1) {
@@ -56,8 +56,6 @@ export default class NotesStorage {
     return this.notes.filter(note => note.getValueOfProperty('isFinished') === false)
   }
   sortNotes(sortBy) {
-    console.log('sorting by ' + sortBy)
-    
     if(sortBy === 'dueDate') {
       this.notes.sort((a, b) => {
         return a.toJSON()['dueDate'] - b.toJSON()['dueDate']
@@ -75,15 +73,12 @@ export default class NotesStorage {
         return parseInt(b.toJSON()['importance'],10) - parseInt(a.toJSON()['importance'],10)
       })
     }
-    console.log(this.notes)
-
     return this
   }
   getNoteById(id) {
     return this._readNote(id)
   }
   getNotes(settings) {
-    console.trace(settings)
     if(settings) {
       this.sortNotes(settings.sortBy)
       return this.filterNotes(settings.filterItems)

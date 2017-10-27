@@ -1,9 +1,6 @@
 export default class StorageService {
   constructor(key) {
     this.key = key
-    this._storage = this._readFromDataStorage()
-
-    this._writeToDataStorage(this._storage)
   }
   _readFromDataStorage() {
     throw new TypeError(this.constructor.name+'._readFromDataStorage is not a function. Your class "' + this.constructor.name + '" extends from StorageService but does not implement a method _readFromDataStorage. Please implement the method _readFromDataStorage in your class "' + this.constructor.name + '" to use StorageService.')

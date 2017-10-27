@@ -2,8 +2,10 @@
 
 import Model from '../model/model.js'
 
-import TemplateStorage from './templateStorage.js'
-import routes from './routes.js'
+// import TemplateStorage from './templateStorage.js'
+// import routes from './routes.js'
+
+import { getTemplate } from '../model/templateStore.js'
 
 import handlers from './handlers.js'
 
@@ -17,8 +19,10 @@ export default class Controller {
       throw new Error('please provide a key for you controller object')
     }
 
-    this.model = new Model(key)
-    this.templateStorage = new TemplateStorage(routes)
+    this.model = new Model(this.key)
+    console.log(this.model)
+    // this.templateStorage = new TemplateStorage(routes)
+    // console.log(this.templateStorage)
 
     this.views = {
       form: {},
@@ -44,14 +48,16 @@ export default class Controller {
     this.render()
   }
   render() {
-    this.templateStorage.getTemplate(this.createView.bind(this))
+    getTemplate(this.createView.bind(this))
   }
   createView(createHTML) {
     let items = {
-      items: this.model.notesStorage.getNotes({
-        filterItems: this.model.data.getItem('filterItems'),
-        sortBy: this.model.data.getItem('sortBy')
-      }).map(el => el.getPrettyNote())
+      items: this.model.notesStorage
+        .getNotes({
+          filterItems: this.model.data.getItem('filterItems'),
+          sortBy: this.model.data.getItem('sortBy')
+        })
+        .map(el => el.getPrettyNote())
     }
 
     this.hook.innerHTML = createHTML(items)

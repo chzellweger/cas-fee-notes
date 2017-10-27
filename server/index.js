@@ -16,7 +16,12 @@ app.use(router)
 
 app.use(express.static(path.join(__dirname, '../public')))
 
-app.get('/test', (req, res) => res.end('hello world'))
+app.get("/", function(req, res){
+  res.sendFile("/index.html",  { root: path.resolve(__dirname,'../public/') });
+});
+
+app.use("/", require('./routes/routes.js'));
+
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3010;

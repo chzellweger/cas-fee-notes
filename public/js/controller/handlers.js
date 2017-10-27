@@ -148,6 +148,7 @@ function onSubmitForm(mode, e) {
     this.model.notesStorage.getNotes().map(note => note.toJSON())
   )
 }
+
 export default {
   setCount,
   onSort,

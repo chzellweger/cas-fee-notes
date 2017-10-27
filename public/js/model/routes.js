@@ -1,4 +1,4 @@
-export default function routes(hash) {
+export default function routesParser(hash) {
   switch(hash) {
     case '#main': return 'main-template'
     case '#edit': return 'form-template'
@@ -6,3 +6,4 @@ export default function routes(hash) {
     default: return '404-template'
   }
 }
+
