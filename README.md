@@ -12,4 +12,4 @@ npm install
 ```bash
 npm run start
 ```
-Serves project on http://localhost:8888
+Serves project on http://localhost:3010

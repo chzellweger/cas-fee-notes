@@ -1,19 +1,24 @@
 // import RemoteStorageService from './services/RemoteStorageService.js'
 // import LocalStorageService from './services/LocalStorageService.js'
-const storage = function() {}
+import remoteService from './remoteService.js'
 
 let appState = {}
 
-let dataFromStorage = storage.getAll()
+function load(callback) {
+  (async function() {
+    let data = await remoteService.getAll('state')
 
-appState.type = 'state'
-appState.style = dataFromStorage.style || 'day'
-appState.filterItems = dataFromStorage.filterItems || false
-appState.sortBy = dataFromStorage.sortBy || 'default'
-appState.notes = dataFromStorage.notes || []
+    data = data[0]
 
-saveAllItems(appState)
+    appState.type = 'state'
+    appState.style = data.style || 'day'
+    appState.filterItems = data.filterItems || false
+    appState.sortBy = data.sortBy || 'default'
 
+    saveAllItems(appState, callback)
+  })()
+}
+  
 function updateItem(item, value, callback) {
   appState[item] = value
   
@@ -29,18 +34,21 @@ function saveAllItems(toPersist, callback) {
   appState.style = toPersist.style
   appState.filterItems = toPersist.filterItems
   appState.sortBy = toPersist.sortBy
-  appState.notes = toPersist.notes
-
-  if (callback) callback()
-
-  storage.persist(toPersist)
+  
+  remoteService.persist('state', toPersist)
+  
+  if (callback) return callback(toPersist)
 }
 
-function getAllItems() {
-  return appState
+function getAllItems(store) {
+  return load('state', () => {
+    console.log(appState)
+    return appState
+  })
 }
 
 export default {
+  load: load,
   getAll: getAllItems,
   saveAll: saveAllItems,
   getItem: getItem,

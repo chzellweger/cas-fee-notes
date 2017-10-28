@@ -1,7 +1,5 @@
-import Controller from './js/controller/controller.js'
+import controller from './js/controller/controller.js'
 
-const controller = new Controller('notes')
-
-document.addEventListener("DOMContentLoaded", function init() {
+document.addEventListener("DOMContentLoaded", function () {
   controller.init(document.getElementById('app'))
 })

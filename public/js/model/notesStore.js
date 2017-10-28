@@ -1,6 +1,6 @@
 import Note from './note.js'
 
-const notes = []
+let notes = []
 
 function parseDataToNotes(items) {
   items.forEach(note => this.addNote(note))
@@ -47,15 +47,15 @@ function deleteNote(id) {
 }
 
 function filterNotes(showFiltered) {
-  if (showFiltered) return this.notes
-  return this.notes.filter(
+  if (showFiltered) return notes
+  return notes.filter(
     note => note.getValueOfProperty('isFinished') === false
   )
 }
 
 function sortNotes(sortBy) {
   if (sortBy === 'dueDate') {
-    this.notes.sort((a, b) => {
+    notes.sort((a, b) => {
       return a.toJSON()['dueDate'] - b.toJSON()['dueDate']
     })
   }
@@ -93,5 +93,6 @@ export default {
   get: getNotes,
   add: addNote,
   getById: getNoteById,
-  delete: deleteNote
+  delete: deleteNote,
+  updateItem: updateNote
 }

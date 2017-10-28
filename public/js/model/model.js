@@ -1,10 +1,11 @@
-import DataStorage from './data.js'
-import NotesStorage from './notesStorage.js'
+import notesStore from './notesStore.js'
+import stateStore from './stateStore.js'
+import templatesStore from './templateStore.js'
 
-export default class Model {
-  constructor(key) {
-    this.key = key
-    this.data = new DataStorage(this.key)
-    this.notesStorage = new NotesStorage(this.data.notes)
-  }
+const model = {
+  notes: notesStore,
+  state: stateStore,
+  templates: templatesStore
 }
+
+export default model

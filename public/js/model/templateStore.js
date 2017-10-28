@@ -31,4 +31,4 @@ function getTemplate(callback) {
   fetchTemplate().then(templateFunction => callback(templateFunction))
 }
 
-export { getTemplate }
+export default { getTemplate }
