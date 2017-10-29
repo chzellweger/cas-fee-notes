@@ -1,9 +1,47 @@
+import remoteService from './remoteService.js'
+
 import Note from './note.js'
 
 let notes = []
 
+function load(callback) {
+  (async function() {
+    let data = await remoteService.getAll('notes')
+    console.log('fetched notes-data')
+    console.log(data)
+
+    data = data[0]['notes'] || []
+    parseDataToNotes(data)
+
+    console.log('fetched notes: ')
+    console.log(data)
+    
+    saveAllNotes(notes, callback)
+  })()
+}
+
+function saveAllNotes(toPersist, callback) {
+  notes = toPersist
+  console.log(notes)
+  let data = {
+    type: 'notes',
+    notes: toPersist.map(note => note.toJSON())
+  }
+  
+  remoteService.persist('notes', data)
+  
+  if (callback) return callback(toPersist)
+}
+
+function getAllNotes() {
+  return load('notes', () => {
+    console.log(notes)
+    return notes
+  })
+}
+
 function parseDataToNotes(items) {
-  items.forEach(note => this.addNote(note))
+  items.forEach(note => addNote(note))
 }
 
 function _getIndex(id) {
@@ -11,18 +49,21 @@ function _getIndex(id) {
 }
 
 function _readNote(id) {
+  console.log(id)
   return notes.find(note => note.getValueOfProperty('id') === id)
 }
 
-function addNote(content, id) {
+function addNote(content, id, callback) {
   if (id) {
     updateNote(content, id)
     return
   }
   notes.push(new Note(content))
+  
+  saveAllNotes(notes, callback)
 }
 
-function updateNote(content, id) {
+function updateNote(content, id, callback) {
   console.log('updating in clients notestorage')
   let index = _getIndex(id)
 
@@ -35,6 +76,14 @@ function updateNote(content, id) {
   let note = new Note(content)
   
   notes[index] = note
+
+  saveAllNotes(notes, callback)
+}
+
+function markNoteAsFinished(id, callback){
+  const note = getNoteById(id).toJSON()
+  note.isFinished = !note.isFinished
+  updateNote(note, id, callback)
 }
 
 function deleteNote(id) {
@@ -46,14 +95,14 @@ function deleteNote(id) {
   notes.splice(index, 1)
 }
 
-function filterNotes(showFiltered) {
+function _filterNotes(showFiltered) {
   if (showFiltered) return notes
   return notes.filter(
     note => note.getValueOfProperty('isFinished') === false
   )
 }
 
-function sortNotes(sortBy) {
+function _sortNotes(sortBy) {
   if (sortBy === 'dueDate') {
     notes.sort((a, b) => {
       return a.toJSON()['dueDate'] - b.toJSON()['dueDate']
@@ -82,8 +131,8 @@ function getNoteById(id) {
 
 function getNotes(settings) {
   if (settings) {
-    sortNotes(settings.sortBy)
-    return filterNotes(settings.filterItems)
+    _sortNotes(settings.sortBy)
+    return _filterNotes(settings.filterItems)
   }
   return notes
 }
@@ -94,5 +143,8 @@ export default {
   add: addNote,
   getById: getNoteById,
   delete: deleteNote,
-  updateItem: updateNote
+  update: updateNote,
+  markAsFinished: markNoteAsFinished,
+  getAllNotes: getAllNotes,
+  load: load
 }

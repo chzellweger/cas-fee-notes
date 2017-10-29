@@ -1,23 +1,20 @@
-'use strict'
-
 import model from '../model/model.js'
-import { views, editing, render } from './controller.js'
+import c from './controller.js'
 
 export function setCount(e) {
   const length = model.notes.get().length
-  views.main.countField.innerText =
+  c.views.main.countField.innerText =
     length + ' ' + (length === 1 ? 'Notiz' : 'Notizen')
 }
 
 export function setStyle(e) {
-  console.log(this)
   const style = model.state.getItem('style')
-  views.main.styleChanger.value = style
+  c.views.main.styleChanger.value = style
   document.body.className = style
 }
 
 export function setSort(e) {
-  const inputs = views.main.sortNotes.querySelectorAll('input')
+  const inputs = c.views.main.sortNotes.querySelectorAll('input')
 
   let value = model.state.getItem('sortBy')
 
@@ -48,18 +45,16 @@ export function setSort(e) {
 export function setToggleFinished() {
   const filterStatus = model.state.getItem('filterItems')
   
-  views.main.toggleFinished.checked = filterStatus
+  c.views.main.toggleFinished.checked = filterStatus
 }
 
 export function onStyleChange(e) {
-  console.log('onStyleChange')
   document.body.className = e.target.value
   model.state.updateItem('style', e.target.value)
 }
 
 export function onSort(e) {
   setTimeout(() => {
-    console.log('onSort')
     const checked = document.querySelector('input[type=radio]:checked')
     const value = checked.value
     
@@ -79,58 +74,42 @@ export function onSort(e) {
         sortBy = 'dueDate'
     }
 
-    model.state.updateItem('sortBy', sortBy, render)
+    model.state.updateItem('sortBy', sortBy, c.render)
   }, 0)
 }
 
 export function onFilter(e) {
-  console.log('onFilter')
   model.state.updateItem(
     'filterItems',
     e.target.checked,
-    render()
+    c.render()
   )
 }
 
 export function onMarkNoteAsFinished(e) {
   if (e.target.type === 'checkbox') {
-    console.log('onMarkNoteAsFinished')
     const id = e.target.dataset.id
-
-    const note = model.notes.getNoteById(id).toJSON()
-    note.isFinished = !note.isFinished
-
-    model.notes.updateNote(note, id)
-
-    setTimeout(() => {
-      model.notes.updateItem(
-        'notes',
-        model.notes.getNotes(),
-        render()
-      )
-    }, 500)
-    console.log(this)
+    model.notes.markAsFinished(id, c.render)
   }
 }
 
 export function onEditNote(e) {
   if (e.target.nodeName === 'A') {
-    console.log('onEditNote')
-    this.editing = e.target.dataset.id
+    c.setEditing(e.target.dataset.id)
   }
 }
 
 export function _readFields() {
   let note = {
-    title: views.form.title.value,
-    content: views.form.content.value,
-    importance: [...views.form.importance].find(el => el.checked).value,
-    dueDate: views.form.dueDate.value
+    title: c.views.form.title.value,
+    content: c.views.form.content.value,
+    importance: [...c.views.form.importance].find(el => el.checked).value,
+    dueDate: c.views.form.dueDate.value
   }
 
-  views.form.title.value = ''
-  views.form.content.value = ''
-  views.form.dueDate.value = ''
+  c.views.form.title.value = ''
+  c.views.form.content.value = ''
+  c.views.form.dueDate.value = ''
 
   return note
 }
@@ -143,11 +122,6 @@ export function onSubmitForm(mode, e) {
   if (mode === 'add') {
     model.notes.add(note)
   } else if (mode === 'edit') {
-    model.notes.update(note, editing)
+    model.notes.update(note, c.getEditing())
   }
-
-  model.notes.updateItem(
-    'notes',
-    model.notes.get().map(note => note.toJSON())
-  )
 }

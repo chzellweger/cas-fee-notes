@@ -2,7 +2,7 @@ let _storage = {}
 
 function _readFromDataStorage(store, callback) {
   return fetch('/store/' + store)
-    .then(res => res.json())
+    .then(res => {const d = res.json(); console.log(d); return d})
     .catch(e => console.error(e))
   }
 
@@ -13,12 +13,11 @@ function _writeToDataStorage(store, toPersist) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({state: toPersist})
+    body: JSON.stringify({data: toPersist})
   })
 }
 
 async function getAll(items) {
-  console.log(_readFromDataStorage(items))
   return _readFromDataStorage(items)
 }
 

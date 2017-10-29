@@ -1,14 +1,16 @@
-// import RemoteStorageService from './services/RemoteStorageService.js'
-// import LocalStorageService from './services/LocalStorageService.js'
 import remoteService from './remoteService.js'
 
 let appState = {}
 
 function load(callback) {
-  (async function() {
-    let data = await remoteService.getAll('state')
+  console.trace('load')
 
+  ;(async function() {
+    let data = await remoteService.getAll('state')
+    
     data = data[0]
+    console.log('fetched state: ')
+    console.log(data)
 
     appState.type = 'state'
     appState.style = data.style || 'day'
@@ -40,7 +42,7 @@ function saveAllItems(toPersist, callback) {
   if (callback) return callback(toPersist)
 }
 
-function getAllItems(store) {
+function getAllItems() {
   return load('state', () => {
     console.log(appState)
     return appState

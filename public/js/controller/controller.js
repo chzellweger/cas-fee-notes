@@ -1,4 +1,3 @@
-'use strict'
 /* global dateFns, Handlebars */
 
 import { handlebarsRepeatHelper } from '../lib/helpers.js'
@@ -6,21 +5,28 @@ import { handlebarsRepeatHelper } from '../lib/helpers.js'
 import model from '../model/model.js'
 import * as handlers from './handlers.js'
 
-export let views = {
+let views = {
   form: {},
   main: {}
 }
 
-export let editing = ''
-
 let hook = ''
 
-Handlebars.registerHelper('repeat', handlebarsRepeatHelper)
+let editing = ''
+
+function setEditing(value) {
+  editing = value
+}
+
+function getEditing() {
+  return editing
+}
 
 const init = (hookElement) => {
-  console.log('init controller')
   hook = hookElement
   
+  Handlebars.registerHelper('repeat', handlebarsRepeatHelper)
+
   if (!window.location.hash) {
     window.location.hash = '#main'
   }
@@ -28,15 +34,16 @@ const init = (hookElement) => {
   window.addEventListener('hashchange', () => {
     render()
   })
-  model.state.load(render)
+
+  model.notes.load(model.state.load(render))
+  // model.state.load(render)
 }
 
-export const render = () => {
+const render = () => {
   model.templates.getTemplate(createView)
 }
 
 const createView = (createHTML) => {
-  console.log(model)
   let items = {
     items: model.notes
     .get({
@@ -52,7 +59,6 @@ const createView = (createHTML) => {
 }
 
 const initView = () => {
-  console.log('switch view')
   switch (window.location.hash) {
     case '#main':
     initMain()
@@ -69,7 +75,6 @@ const initView = () => {
   }
 
 function initMain () {
-  console.log('init main')
   const main = views.main
   
   main.countField = document.querySelector('#count')
@@ -98,7 +103,6 @@ function initMain () {
 }
 
 const initForm = () => {
-  console.log('init form')
   const form = views.form
   
   form.title = document.querySelector('#title')
@@ -106,16 +110,15 @@ const initForm = () => {
   form.importance = document.querySelectorAll('input[name=importance]')
   form.dueDate = document.querySelector('#due-date')
   form.submit = document.querySelector('button[type=submit]')
-  form.submit.onclick = handlers.onSubmitForm.bind(this, 'add')
+  form.submit.onclick = handlers.onSubmitForm.bind(null, 'add')
   }
   
 const initEdit = () => {
-  console.log('init edit')
   const form = views.form
   
   initForm()
   
-  const note = model.notes.getNoteById(editing).toJSON()
+  const note = model.notes.getById(editing).toJSON()
   
   form.title.value = note.title
   form.content.value = note.content
@@ -124,7 +127,13 @@ const initEdit = () => {
   ).checked = true
   form.dueDate.value = dateFns.format(new Date(note.dueDate), 'YYYY-MM-DD')
   
-  form.submit.onclick = handlers.onSubmitForm.bind(this, 'edit')
+  form.submit.onclick = handlers.onSubmitForm.bind(null, 'edit')
 }
 
-export default { init }
+export default {
+  init,
+  getEditing,
+  setEditing,
+  render,
+  views
+}
