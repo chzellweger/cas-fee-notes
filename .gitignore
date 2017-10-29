@@ -4,3 +4,4 @@ color_scheme.txt
 .eslintrc
 .vscode
 mockData.txt
+server/data/state.db
