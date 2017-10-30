@@ -2,7 +2,7 @@ let _storage = {}
 
 function _readFromDataStorage(store, callback) {
   return fetch('/store/' + store)
-    .then(res => res => res.json())
+    .then(res => res.json())
     .catch(e => console.error(e))
   }
 
