@@ -7,14 +7,9 @@ let notes = []
 function load(callback) {
   (async function() {
     let data = await remoteService.getAll('notes')
-    console.log('fetched notes-data')
-    console.log(data)
-
+    
     data = data && data[0] && data[0]['notes'] || []
     parseDataToNotes(data)
-
-    console.log('fetched notes: ')
-    console.log(data)
     
     saveAllNotes(notes, callback)
   })()
@@ -22,7 +17,6 @@ function load(callback) {
 
 function saveAllNotes(toPersist, callback) {
   notes = toPersist
-  console.log(notes)
   let data = {
     type: 'notes',
     notes: toPersist.map(note => note.toJSON())
@@ -35,7 +29,6 @@ function saveAllNotes(toPersist, callback) {
 
 function getAllNotes() {
   return load('notes', () => {
-    console.log(notes)
     return notes
   })
 }
@@ -49,7 +42,6 @@ function _getIndex(id) {
 }
 
 function _readNote(id) {
-  console.log(id)
   return notes.find(note => note.getValueOfProperty('id') === id)
 }
 
@@ -64,7 +56,6 @@ function addNote(content, id, callback) {
 }
 
 function updateNote(content, id, callback) {
-  console.log('updating in clients notestorage')
   let index = _getIndex(id)
 
   if (index === -1) {

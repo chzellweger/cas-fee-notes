@@ -1,10 +1,8 @@
 const db = require('./db.js')
 
 function publicGetState(type, callback) {
-  console.log('getting state, type ' + type + ' in appStateStore')
   try {
     db.find({ type: type }, function(err, doc) {
-      console.log('db-op find, type ' + type + ' in appStateStore')
       if(err) { console.log(err) }
       if (callback) callback(err, doc)
     })
@@ -14,7 +12,6 @@ function publicGetState(type, callback) {
 }
 
 function publicPutState(type, state, callback) {
-  console.log('putting state, type ' + type + ' in appStateStore')
   if (!state) {
     callback()
   }
@@ -25,7 +22,6 @@ function publicPutState(type, state, callback) {
       affectedDocuments,
       upsert
     ) {
-      console.log('db-op update, type ' + type + ' in appStateStore')
       if (err) console.log(err)
       callback(err, numAffected, affectedDocuments, upsert)
     })
