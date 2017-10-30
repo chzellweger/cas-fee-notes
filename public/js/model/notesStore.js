@@ -8,9 +8,6 @@ function load(callback) {
   (async function() {
     let data = await remoteService.getAll('notes')
     
-    console.log('fetched notes-data')
-    console.log(data)
-
     data = data && data[0] && data[0]['notes'] || []
     parseDataToNotes(data)
     

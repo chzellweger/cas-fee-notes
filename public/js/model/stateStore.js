@@ -8,9 +8,7 @@ function load(callback) {
     let data = await remoteService.getAll('state')
     
     data = data && data[0]
-    console.log('fetched state: ')
-    console.log(data)
-
+    
     appState.type = 'state'
     appState.style = data.style || 'day'
     appState.filterItems = data.filterItems || false
