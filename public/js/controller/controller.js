@@ -36,7 +36,6 @@ const init = (hookElement) => {
   })
 
   model.notes.load(model.state.load(render))
-  // model.state.load(render)
 }
 
 const render = () => {
