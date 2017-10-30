@@ -59,8 +59,9 @@ function updateNote(content, id, callback) {
   let index = _getIndex(id)
 
   if (index === -1) {
-    throw new Error('no such note...')
-  }
+      console.log(new Error('no such note: ' + id))
+      return
+    }
 
   content.id = id
 
@@ -81,7 +82,8 @@ function deleteNote(id) {
   let index = _getIndex(id)
 
   if (index === -1) {
-    throw new Error('no such note...')
+    console.log(new Error('no such note: ' + id))
+    return
   }
   notes.splice(index, 1)
 }

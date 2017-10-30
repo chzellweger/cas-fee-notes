@@ -22,8 +22,8 @@ function fetchTemplate() {
       templatesCache[hash] = templateFunction
       return templateFunction
     })
-    .catch(e => {
-      throw new Error(e)
+    .catch(err => {
+      console.log('ERROR: ' + err.code + ' (' + err.message + ')')
     })
 }
 

@@ -3,7 +3,9 @@ let _storage = {}
 function _readFromDataStorage(store, callback) {
   return fetch('/store/' + store)
     .then(res => res.json())
-    .catch(e => console.error(e))
+    .catch(err => {
+      console.log('ERROR: ' + err.code + ' (' + err.message + ')')
+    })
   }
 
 function _writeToDataStorage(store, toPersist) {
@@ -14,6 +16,9 @@ function _writeToDataStorage(store, toPersist) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({data: toPersist})
+  })
+  .catch(err => {
+    console.log('ERROR: ' + err.code + ' (' + err.message + ')')
   })
 }
 
