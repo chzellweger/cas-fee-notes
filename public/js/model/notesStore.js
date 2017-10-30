@@ -10,7 +10,7 @@ function load(callback) {
     console.log('fetched notes-data')
     console.log(data)
 
-    data = data[0]['notes'] || []
+    data = data && data[0] && data[0]['notes'] || []
     parseDataToNotes(data)
 
     console.log('fetched notes: ')

@@ -8,7 +8,7 @@ function load(callback) {
   ;(async function() {
     let data = await remoteService.getAll('state')
     
-    data = data[0]
+    data = data && data[0] || {}
     console.log('fetched state: ')
     console.log(data)
 
