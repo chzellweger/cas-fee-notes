@@ -1,13 +1,23 @@
 const express = require('express')
 const router = express.Router()
 
-const state = require('../controller/stateController.js')
-const notes = require('../controller/notesController.js')
+const controller = require('../controller/controller')
 
-router.get('/store/notes', notes.getNotes)
-router.put('/store/notes', notes.putNotes)
 
-router.get('/store/state', state.getState)
-router.put('/store/state', state.putState)
+router.get('/store/notes', (req, res) => {
+  controller.getItems(req, res, 'notes')
+})
+
+router.put('/store/notes', (req, res) => {
+  controller.putItems(req, res, 'notes')
+})
+
+router.get('/store/state', (req, res) => {
+  controller.getItems(req, res, 'state')
+})
+
+router.put('/store/state', (req, res) => {
+  controller.putItems(req, res, 'state')
+})
 
 module.exports = router

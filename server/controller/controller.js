@@ -1,9 +1,9 @@
 const store = require('../services/appStateStore.js')
 
-module.exports.getState = function(req, res) {
-  console.log('getting state in state-controller')
+module.exports.getItems = function(req, res, type) {
+  console.log('getting ' + type + ' in controller')
   try {
-    store.all('state', function(err, state) {
+    store.all(type, function(err, state) {
       if (err) throw new Error(err)
       res.json(state)
     })
@@ -12,8 +12,8 @@ module.exports.getState = function(req, res) {
   }
 }
 
-module.exports.putState = function(req, res) {
-  console.log('put state')
+module.exports.putItems = function(req, res, type) {
+  console.log('put' + type)
   console.log(req.body.data)
   
   if(!req.body.data) {
@@ -21,7 +21,7 @@ module.exports.putState = function(req, res) {
   }
 
   try {
-    store.put('state', req.body.data, function(err, doc) {
+    store.put(type, req.body.data, function(err, doc) {
       if (err) {
         console.log(err)
         res.json(err)
