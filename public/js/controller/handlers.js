@@ -19,25 +19,22 @@ export function setSort(e) {
   let value = model.state.getItem('sortBy')
 
   let sortBy = ''
-
-  if (value === 'default') {
+  
+  // map state-values to view-values
+  switch (value) {
+    case 'dueDate':
     sortBy = 'finish_date'
-  } else {
-    switch (value) {
-      case 'dueDate':
-        sortBy = 'finish_date'
-        break
-      case 'createdAt':
-        sortBy = 'created_at'
-        break
-      case 'importance':
-        sortBy = 'importance'
-        break
-      default:
-        sortBy = 'dueDate'
-    }
+    break
+    case 'createdAt':
+    sortBy = 'created_at'
+    break
+    case 'importance':
+    sortBy = 'importance'
+    break
+    default:
+    sortBy = 'finish_date'
   }
-
+  
   const toCheck = [...inputs].find(input => input.value === sortBy)
   toCheck.checked = true
 }
@@ -60,6 +57,7 @@ export function onSort(e) {
     
     let sortBy = ''
 
+    // map view-values to state-values
     switch (value) {
       case 'finish_date':
         sortBy = 'dueDate'
@@ -82,7 +80,7 @@ export function onFilter(e) {
   model.state.updateItem(
     'filterItems',
     e.target.checked,
-    c.render()
+    c.render
   )
 }
 
@@ -99,7 +97,19 @@ export function onEditNote(e) {
   }
 }
 
-export function _readFields() {
+export function onSubmitForm(mode, e) {
+  e.preventDefault()
+
+  let note = _readFields()
+
+  if (mode === 'add') {
+    model.notes.add(note)
+  } else if (mode === 'edit') {
+    model.notes.update(note, c.getEditing())
+  }
+}
+
+function _readFields() {
   let note = {
     title: c.views.form.title.value,
     content: c.views.form.content.value,
@@ -112,16 +122,4 @@ export function _readFields() {
   c.views.form.dueDate.value = ''
 
   return note
-}
-
-export function onSubmitForm(mode, e) {
-  e.preventDefault()
-
-  let note = _readFields()
-
-  if (mode === 'add') {
-    model.notes.add(note)
-  } else if (mode === 'edit') {
-    model.notes.update(note, c.getEditing())
-  }
 }

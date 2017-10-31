@@ -9,9 +9,7 @@ function load(callback) {
     let data = await remoteService.getAll('notes')
     
     data = data && data[0] && data[0]['notes'] || []
-    parseDataToNotes(data)
-    
-    saveAllNotes(notes, callback)
+    _parseDataToNotes(data, callback)
   })()
 }
 
@@ -27,31 +25,16 @@ function saveAllNotes(toPersist, callback) {
   if (callback) return callback(toPersist)
 }
 
-function getAllNotes() {
-  return load('notes', () => {
-    return notes
-  })
-}
-
-function parseDataToNotes(items) {
-  items.forEach(note => addNote(note))
-}
-
-function _getIndex(id) {
-  return notes.findIndex(note => note.note.id === id)
-}
-
-function _readNote(id) {
-  return notes.find(note => note.getValueOfProperty('id') === id)
-}
-
 function addNote(content, id, callback) {
   if (id) {
     updateNote(content, id)
     return
   }
   notes.push(new Note(content))
-  
+  /*
+  REFACTOR NETWORK-CALL FOR EVERY NOTE!
+  (see also: _parseDataToNotes)
+  */
   saveAllNotes(notes, callback)
 }
 
@@ -130,14 +113,25 @@ function getNotes(settings) {
   return notes
 }
 
+function _parseDataToNotes(items, callback) {
+  items.forEach(note => addNote(note))
+  saveAllNotes(notes, callback)
+}
+
+function _getIndex(id) {
+  return notes.findIndex(note => note.note.id === id)
+}
+
+function _readNote(id) {
+  return notes.find(note => note.getValueOfProperty('id') === id)
+}
+
 export default {
-  parse: parseDataToNotes,
   get: getNotes,
   add: addNote,
   getById: getNoteById,
   delete: deleteNote,
   update: updateNote,
   markAsFinished: markNoteAsFinished,
-  getAllNotes: getAllNotes,
   load: load
 }
