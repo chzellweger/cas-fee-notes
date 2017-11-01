@@ -1,4 +1,5 @@
 /* eslint no-unused-vars: "off" */
+
 export function handlebarsRepeatHelper(n, options) {
   const isNum = !isNaN(n)
 

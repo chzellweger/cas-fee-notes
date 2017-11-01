@@ -4,7 +4,7 @@
   "description": "```bash git clone https://github.com/chzellweger/cas-fee-notes.git cd cas-fee-notes npm install ```",
   "main": "server/index.js",
   "scripts": {
-    "test": "",
+    "test": "./node_modules/.bin/jasmine",
     "start": "node server/index.js"
   },
   "repository": {
