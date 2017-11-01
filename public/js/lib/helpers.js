@@ -1,32 +1,4 @@
 /* eslint no-unused-vars: "off" */
-
-export const getQueryStringAsObject = function() {
-  let queryString = window.location.search.substring(1)
-  if (queryString.length === 0) return null
-
-  let queryElements = queryString.split('&')
-
-  return queryElements.reduce((object, queryPair) => {
-    const keyValue = queryPair.split('=')
-
-    object[keyValue[0]] = decodeURIComponent(keyValue[1]).replace(/\+/g, ' ')
-    return object
-  }, {})
-}
-
-export function getQueryVariable(variable) {
-  const query = window.location.search.substring(1)
-  const vars = query.split('&')
-
-  for (let i = 0; i < vars.length; i++) {
-    let pair = vars[i].split('=')
-    if (pair[0] === variable) {
-      return pair[1]
-    }
-  }
-  return false
-}
-
 export function handlebarsRepeatHelper(n, options) {
   const isNum = !isNaN(n)
 
@@ -70,22 +42,15 @@ export function $querySelectorAll(selector) {
 }
 
 export function formatDay(day, prefix = '', postfix = '') {
-  switch (day) {
-    case 0:
-      return '' + prefix + ' Sonntag' + postfix
-    case 1:
-      return '' + prefix + ' Montag' + postfix
-    case 2:
-      return '' + prefix + ' Dienstag' + postfix
-    case 3:
-      return '' + prefix + ' Mittwoch' + postfix
-    case 4:
-      return '' + prefix + ' Donnerstag' + postfix
-    case 5:
-      return '' + prefix + ' Freitag' + postfix
-    case 6:
-      return '' + prefix + ' Samstag' + postfix
-    default:
-      return ''
-  }
+  const ENUM_DAYS = [
+    'Sonntag',
+    'Montag',
+    'Dienstag',
+    'Mittwoch',
+    'Donnerstag',
+    'Freitag',
+    'Samstag'
+  ]
+
+  return `${prefix} ${ENUM_DAYS[day]} ${postfix}`
 }
