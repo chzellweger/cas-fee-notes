@@ -58,19 +58,13 @@ const createView = createHTML => {
 }
 
 const initView = () => {
-  switch (window.location.hash) {
-    case '#main':
-      initMain()
-      break
-    case '#add':
-      initForm()
-      break
-    case '#edit':
-      initEdit()
-      break
-    default:
-      return null
+  const views = {
+    '#main': initMain,
+    '#add': initForm,
+    '#edit': initEdit
   }
+
+  views[window.location.hash]()
 }
 
 const initMain = () => {

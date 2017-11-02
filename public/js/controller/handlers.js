@@ -14,27 +14,18 @@ export function setStyle() {
 }
 
 export function setSort() {
+  const mapStateToView = {
+    'dueDate': 'finish_date',
+    'createdAt': 'created_at',
+    'importance': 'importance'
+  }
+
   const inputs = c.views.main.sortNotes.querySelectorAll('input')
 
   let value = model.state.getItem('sortBy')
 
-  let sortBy = ''
-  
-  // map state-values to view-values
-  switch (value) {
-    case 'dueDate':
-    sortBy = 'finish_date'
-    break
-    case 'createdAt':
-    sortBy = 'created_at'
-    break
-    case 'importance':
-    sortBy = 'importance'
-    break
-    default:
-    sortBy = 'finish_date'
-  }
-  
+  const sortBy = mapStateToView[value] || 'finish_date'
+
   const toCheck = [...inputs].find(input => input.value === sortBy)
   toCheck.checked = true
 }
@@ -52,25 +43,18 @@ export function onStyleChange(e) {
 
 export function onSort(e) {
   setTimeout(() => {
+    const mapViewToState = {
+      'finish_date': 'dueDate',
+      'created_at': 'createdAt',
+      'importance': 'importance'
+    }
+
     const checked = document.querySelector('input[type=radio]:checked')
+
     const value = checked.value
     
-    let sortBy = ''
 
-    // map view-values to state-values
-    switch (value) {
-      case 'finish_date':
-        sortBy = 'dueDate'
-        break
-      case 'created_at':
-        sortBy = 'createdAt'
-        break
-      case 'importance':
-        sortBy = 'importance'
-        break
-      default:
-        sortBy = 'dueDate'
-    }
+    const sortBy = mapViewToState[value] || 'dueDate'
 
     model.state.updateItem('sortBy', sortBy, c.render)
   }, 0)
