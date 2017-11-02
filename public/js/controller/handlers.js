@@ -1,19 +1,19 @@
 import model from '../model/model.js'
 import c from './controller.js'
 
-export function setCount(e) {
+export function setCount() {
   const length = model.notes.get().length
   c.views.main.countField.innerText =
     length + ' ' + (length === 1 ? 'Notiz' : 'Notizen')
 }
 
-export function setStyle(e) {
+export function setStyle() {
   const style = model.state.getItem('style')
   c.views.main.styleChanger.value = style
   document.body.className = style
 }
 
-export function setSort(e) {
+export function setSort() {
   const inputs = c.views.main.sortNotes.querySelectorAll('input')
 
   let value = model.state.getItem('sortBy')

@@ -14,7 +14,7 @@ function load(callback) {
     appState.filterItems = data.filterItems || false
     appState.sortBy = data.sortBy || 'default'
 
-    saveAllItems(appState, callback)
+    saveAllItems(appState, callback)  
   })()
 }
   

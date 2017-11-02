@@ -1,6 +1,6 @@
 let _storage = {}
 
-function _readFromDataStorage(store, callback) {
+function _readFromDataStorage(store) {
   return fetch(`/store/${store}`)
     .then(response => {
       if (!response.ok) {

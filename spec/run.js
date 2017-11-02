@@ -1,5 +1,6 @@
 /*
 *
+* ES6-Module support for Jasmine,
 * see https://gist.github.com/mauvm/172878a9646095d03fd7
 *
 */

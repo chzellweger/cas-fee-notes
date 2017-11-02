@@ -6,7 +6,7 @@ const routes = routesParser
 
 const templatesCache = {}
 
-function fetchTemplate() {
+function _fetchTemplate() {
   const hash = window.location.hash
 
   const templateToFetch = routes(hash)
@@ -28,7 +28,7 @@ function fetchTemplate() {
 }
 
 function getTemplate(callback) {
-  fetchTemplate().then(templateFunction => callback(templateFunction))
+  _fetchTemplate().then(templateFunction => callback(templateFunction))
 }
 
 export default { getTemplate }
