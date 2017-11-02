@@ -13,3 +13,9 @@ npm install
 npm run start
 ```
 Serves project on http://localhost:3010
+
+##Test
+```bash
+npm run test
+````
+runs *.spec.js-files in /spec-folder
