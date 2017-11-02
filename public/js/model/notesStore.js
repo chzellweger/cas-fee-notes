@@ -13,16 +13,16 @@ function load(callback) {
   })()
 }
 
-function saveAllNotes(toPersist, callback) {
-  notes = toPersist
-  let data = {
-    type: 'notes',
-    notes: toPersist.map(note => note.toJSON())
+function getNotes(settings) {
+  if (settings) {
+    _sortNotes(settings.sortBy)
+    return _filterNotes(settings.filterItems)
   }
-  
-  remoteService.persist('notes', data)
-  
-  if (callback) return callback(toPersist)
+  return notes
+}
+
+function getNoteById(id) {
+  return notes.find(note => note.id === id)
 }
 
 function addNote(content, id, callback) {
@@ -30,40 +30,41 @@ function addNote(content, id, callback) {
     updateNote(content, id)
     return
   }
+  
   notes.push(new Note(content))
-  /*
-  REFACTOR NETWORK-CALL FOR EVERY NOTE!
-  (see also: _parseDataToNotes)
-  */
-  saveAllNotes(notes, callback)
+  
+  _saveAllNotes(notes, callback)
 }
 
 function updateNote(content, id, callback) {
   let index = _getIndex(id)
-
+  
   if (index === -1) {
-      console.log(new Error('no such note: ' + id))
-      return
-    }
-
+    console.log(new Error('no such note: ' + id))
+    return
+  }
+  
   content.id = id
-
+  
   let note = new Note(content)
   
   notes[index] = note
-
-  saveAllNotes(notes, callback)
+  
+  _saveAllNotes(notes, callback)
 }
 
 function markNoteAsFinished(id, callback){
-  const note = getNoteById(id).toJSON()
-  note.isFinished = !note.isFinished
-  updateNote(note, id, callback)
+  const note = getNoteById(id)
+  const isFinished = note.getFinished()
+  
+  note.setFinished(!isFinished)
+  
+  updateNote(note.toJSON(), id, callback)
 }
 
 function deleteNote(id) {
   let index = _getIndex(id)
-
+  
   if (index === -1) {
     console.log(new Error('no such note: ' + id))
     return
@@ -84,13 +85,13 @@ function _sortNotes(sortBy) {
       return a.toJSON()['dueDate'] - b.toJSON()['dueDate']
     })
   }
-
+  
   if (sortBy === 'createdAt') {
     notes.sort((a, b) => {
       return a.toJSON()['createdAt'] - b.toJSON()['createdAt']
     })
   }
-
+  
   if (sortBy === 'importance') {
     notes.sort((a, b) => {
       return (
@@ -101,29 +102,25 @@ function _sortNotes(sortBy) {
   }
 }
 
-function getNoteById(id) {
-  return _readNote(id)
-}
-
-function getNotes(settings) {
-  if (settings) {
-    _sortNotes(settings.sortBy)
-    return _filterNotes(settings.filterItems)
-  }
-  return notes
-}
-
 function _parseDataToNotes(items, callback) {
-  items.forEach(note => addNote(note))
-  saveAllNotes(notes, callback)
+  notes = items.map(note => new Note(note))
+  _saveAllNotes(notes, callback)
 }
 
 function _getIndex(id) {
-  return notes.findIndex(note => note.note.id === id)
+  return notes.findIndex(note => note.id === id)
 }
 
-function _readNote(id) {
-  return notes.find(note => note.getValueOfProperty('id') === id)
+function _saveAllNotes(toPersist, callback) {
+  notes = toPersist
+  let data = {
+    type: 'notes',
+    notes: toPersist.map(note => note.toJSON())
+  }
+  
+  remoteService.persist('notes', data)
+  
+  if (callback) return callback(toPersist)
 }
 
 export default {

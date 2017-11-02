@@ -5,19 +5,51 @@ export default class Note {
   constructor(item = {}) {
     this.note = this._createNote(item)
   }
+
+  _createNote({ id, title, content, dueDate, createdAt, isFinished, importance } = {}) {
+    return {
+      id: id || this._createId(),
+      title: title || '',
+      content: content || '',
+      dueDate: new Date(dueDate).getTime() || '',
+      createdAt: new Date(createdAt).getTime() || this._addCreationDate(),
+      isFinished: isFinished || false,
+      importance: importance || 1
+    }
+  }
+
+  get id() {
+    return this.note.id
+  }
+
+  set id(id) {
+    this.note.id = id
+  }
+
+  getFinished() {
+    return this.note.isFinished
+  }
+
+  setFinished(finished) {
+    this.note.isFinished = finished
+  }
+
   _createId() {
     const id = Math.random().toString(36).substr(2, 10)
     return `id-${id.toString()}`
   }
+
   _addCreationDate() {
     return new Date().getTime()
   }
+
   _getPrettyDueDate() {
     return dateFns.format(
       dateFns.parse(this.note.dueDate),
       'DD.MM. YYYY'
     )
   }
+
   _getLiteralDueDate(){
     const prefix = 'nächsten'
     const postfix = ', '
@@ -33,26 +65,19 @@ export default class Note {
       return ''
     }
   }
+
   _getPrettyCreatedAtDate() {
     return this.note.createdAt
   }
-  _createNote({ id, title, content, dueDate, createdAt, isFinished, importance } = {}) {
-    return {
-      id: id || this._createId(),
-      title: title || '',
-      content: content || '',
-      dueDate: new Date(dueDate).getTime() || '',
-      createdAt: new Date(createdAt).getTime() || this._addCreationDate(),
-      isFinished: isFinished || false,
-      importance: importance || 1
-    }
-  }
+
   editNote(item) {
     this.note = this._createNote(item)
   }
+
   getValueOfProperty(prop) {
     return this.note[prop]
   }
+
   toJSON() {
     return {
       "id": this.note.id,
@@ -64,6 +89,7 @@ export default class Note {
       "isFinished": this.note.isFinished
     }
   }
+
   getPrettyNote() {
     return {
       id: this.note.id,
