@@ -62,7 +62,7 @@ function markNoteAsFinished(id, callback){
   updateNote(note.toJSON(), id, callback)
 }
 
-function deleteNote(id) {
+function deleteNote(id, callback) {
   let index = _getIndex(id)
   
   if (index === -1) {
@@ -70,6 +70,7 @@ function deleteNote(id) {
     return
   }
   notes.splice(index, 1)
+  _saveAllNotes(notes, callback)
 }
 
 function _filterNotes(showFiltered) {

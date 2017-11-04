@@ -75,7 +75,7 @@ const initMain = () => {
   main.sortNotes = document.querySelector('nav > div:first-child')
   main.toggleFinished = document.querySelector('#toggle-finished')
   main.articles = document.querySelector('main')
-
+  
   handlers.setStyle()
   handlers.setCount()
   handlers.setSort()
@@ -86,6 +86,7 @@ const initMain = () => {
   main.toggleFinished.addEventListener('click', handlers.onFilter)
   main.articles.addEventListener('click', handlers.onMarkNoteAsFinished)
   main.articles.addEventListener('click', handlers.onEditNote)
+  main.articles.addEventListener('click', handlers.onDeleteNote)
 }
 
 const initForm = () => {

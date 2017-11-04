@@ -81,6 +81,12 @@ export function onEditNote(e) {
   }
 }
 
+export function onDeleteNote(e) {
+  if(e.target.nodeName === 'A' && e.target.id === 'delete') {
+    model.notes.delete(e.target.dataset.id, c.render)
+  }
+}
+
 export function onSubmitForm(mode, e) {
   e.preventDefault()
 
