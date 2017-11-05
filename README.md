@@ -1,4 +1,8 @@
 # CAS FEE – Notes App
+
+## Demo
+For a quick preview visit [https://frozen-basin-33768.herokuapp.com/](https://frozen-basin-33768.herokuapp.com/)
+
 ## Installation
 
 ```bash
