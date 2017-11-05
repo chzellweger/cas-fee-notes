@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  width: 95%;
+  max-width: 480px;
   height: 100%;
   margin: 0 auto;
   padding: 0;
