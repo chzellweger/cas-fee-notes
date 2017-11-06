@@ -1,6 +1,6 @@
-import notesStore from './notesStore.js'
-import stateStore from './stateStore.js'
-import templatesStore from './templateStore.js'
+import notesStore from './stores/notesStore.js'
+import stateStore from './stores/stateStore.js'
+import templatesStore from './router/templateStore.js'
 
 const model = {
   notes: notesStore,

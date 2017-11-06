@@ -1,4 +1,4 @@
-import remoteService from './remoteService.js'
+import remoteService from '../data/remoteService.js'
 
 import Note from './note.js'
 

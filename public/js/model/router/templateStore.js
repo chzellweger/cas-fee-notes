@@ -15,7 +15,7 @@ function _fetchTemplate() {
     return new Promise(resolve => resolve(templatesCache[hash]))
   }
 
-  return fetch(`templates/${templateToFetch}.hbs`)
+  return fetch(`../templates/${templateToFetch}.hbs`)
     .then(res => res.text())
     .then(template => Handlebars.compile(template))
     .then(templateFunction => {
