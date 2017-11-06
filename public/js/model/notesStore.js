@@ -74,7 +74,10 @@ function deleteNote(id, callback) {
 }
 
 function _filterNotes(showFiltered) {
-  if (showFiltered) return notes
+  if (showFiltered) {
+    return notes
+  }
+  
   return notes.filter(
     note => note.getValueOfProperty('isFinished') === false
   )

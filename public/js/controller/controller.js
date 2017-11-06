@@ -43,14 +43,6 @@ const render = () => {
 }
 
 const createView = createHTML => {
-  console.log(model.notes.
-    get({
-      filterItems: model.state.getItem('filterItems'),
-      sortBy: model.state.getItem('sortBy')
-    })
-  )
-  console.log(model.state.getItem('filterItems'))
-  
   let items = {
     items: model.notes
       .get({
