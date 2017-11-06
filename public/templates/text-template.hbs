@@ -1,29 +1,53 @@
-Welcome to the Notes-App. Today, you have
-<span id="count" class="mutable">three</span>
-open notes.
+Welcome to the Notes-App. Today, you have <span id="count" class="mutable">three</span> open notes.
 You can sort your notes, right now they are sorted by
-<span class="mutable drop sortBy">
-<select>
-  <option>due date</option>
-  <option>created at</option>
-  <option>importance</option>
-</select>
-due date
+<span class="mutable sortBy">
+  <select id="sort-notes">
+    <option value="due_date">due date</option>
+    <option value="created_at">creation date</option>
+    <option value="importance">importance</option>
+  </select>
 </span>.
-You can also change the style of this site, which is currently in <span class="mutable drop">day-mode</span>.
-You are currently <span class="mutable drop">not showing</span> your finished notes.
+You can also change the style of this site, which is currently in
+<span class="mutable">
+<select id="select-style" name="style">
+  <option value="day">day mode</option>
+  <option value="night">night mode</option>  
+</select>
+</span>.
+You are currently
+<span class="mutable">
+    <select id="toggle-finished">
+        <option value="false">not showing</option>
+        <option value="true">showing</option>
+      </select>
+</span> your finished notes.
 You want to add a note? <a href="#add">Over there!</a>
-Well and now...here are your notes:<br>
-
-<main>
-Note<br>
-Note<br>
-Note
+Well and now...if you have any, here are your notes:<br>
+<main id="notes">
+{{#each items}}
+      <article>
+        <div>
+          <div>
+            <span>to be done by {{ literalDueDate }} {{ prettyDueDate }}</span>
+            <label>
+                  <input data-id="{{ id }}" name="finish" type="checkbox" {{#if isFinished}}checked{{/if}}>
+                  <span>done <span></span> 
+                </label>
+          </div>
+          <div>
+            <span>{{#repeat importance}}<span>&#9889;</span>{{/repeat}}</span>
+          </div>
+        </div>
+        <div>
+          <details>
+            <summary>{{ title }} </summary>
+            <p>{{ content }}</p>
+          </details>
+        </div>
+        <div>
+          <a data-id={{ id }} href="#edit">change</a>&nbsp;
+          <a id="delete" data-id={{ id }} href="#main">delete</a>
+        </div>
+      </article>
+      {{/each}}
 </main>
-
-So, you want to add a new note. You have to <input />,
-you call your task <input /> and you have to do it by
-<input type="date">. It is {{ very }} important.
-Allright, save your note by pressing <a href="">this button</a>.
-Or maybe, you changed your mind...<a href="">press this button</a>.
-And then...<a href="#main">go back to your notes</a>.

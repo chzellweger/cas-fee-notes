@@ -1,0 +1,37 @@
+    body {
+      font-size: 4rem;
+    }
+    .mutable {
+      color: rgb(255,0,0)
+    }
+    .drop {
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+    }
+    input, select {
+      font-size: 4rem;
+      font-family: 'Times'
+    }
+    select {
+      -moz-appearance: none;
+      -ms-progress-appearance: none;
+      -webkit-appearance: none;
+      border: none;
+      background: white;
+      color: rgb(255,0,0);
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+      text-align-last: center;
+      padding-right: 29px;
+      direction: rtl;
+    }
+    
+    
+    a {
+      color: rgb(255, 0, 0);
+    }
+
+    body.night  {
+      background-color: black;
+      color: white;
+    }

@@ -43,6 +43,14 @@ const render = () => {
 }
 
 const createView = createHTML => {
+  console.log(model.notes.
+    get({
+      filterItems: model.state.getItem('filterItems'),
+      sortBy: model.state.getItem('sortBy')
+    })
+  )
+  console.log(model.state.getItem('filterItems'))
+  
   let items = {
     items: model.notes
       .get({
@@ -72,7 +80,7 @@ const initMain = () => {
 
   main.countField = document.querySelector('#count')
   main.styleChanger = document.querySelector('#select-style')
-  main.sortNotes = document.querySelector('nav > div:first-child')
+  main.sortNotes = document.querySelector("#sort-notes")
   main.toggleFinished = document.querySelector('#toggle-finished')
   main.articles = document.querySelector('main')
   
@@ -81,9 +89,9 @@ const initMain = () => {
   handlers.setSort()
   handlers.setToggleFinished()
 
-  main.sortNotes.addEventListener('click', handlers.onSort)
+  main.sortNotes.addEventListener('change', handlers.onSort)
   main.styleChanger.addEventListener('change', handlers.onStyleChange)
-  main.toggleFinished.addEventListener('click', handlers.onFilter)
+  main.toggleFinished.addEventListener('change', handlers.onFilter)
   main.articles.addEventListener('click', handlers.onMarkNoteAsFinished)
   main.articles.addEventListener('click', handlers.onEditNote)
   main.articles.addEventListener('click', handlers.onDeleteNote)
@@ -94,9 +102,9 @@ const initForm = () => {
 
   form.title = document.querySelector('#title')
   form.content = document.querySelector('#content')
-  form.importance = document.querySelectorAll('input[name=importance]')
+  form.importance = document.querySelector('#importance')
   form.dueDate = document.querySelector('#due-date')
-  form.submit = document.querySelector('button[type=submit]')
+  form.submit = document.querySelector('a[id=submit]')
 
   form.submit.onclick = handlers.onSubmitForm.bind(null, 'add')
 }
@@ -107,12 +115,9 @@ const initEdit = () => {
   initForm()
 
   const note = model.notes.getById(editing).toJSON()
-
   form.title.value = note.title
   form.content.value = note.content
-  ;[...form.importance].find(
-    element => element.value === note.importance
-  ).checked = true
+  form.importance.value = parseInt(note.importance, 10)
   form.dueDate.value = dateFns.format(new Date(note.dueDate), 'YYYY-MM-DD')
 
   form.submit.onclick = handlers.onSubmitForm.bind(null, 'edit')

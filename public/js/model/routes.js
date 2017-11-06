@@ -1,8 +1,8 @@
 export default function routesParser(hash) {
   switch(hash) {
-    case '#main': return 'main-template'
-    case '#edit': return 'form-template'
-    case '#add': return 'form-template'
+    case '#main': return 'text-template'
+    case '#edit': return 'text-form-template'
+    case '#add': return 'text-form-template'
     default: return '404-template'
   }
 }
