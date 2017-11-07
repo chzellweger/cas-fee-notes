@@ -1,4 +1,4 @@
-import remoteService from './remoteService.js'
+import remoteService from '../data/remoteService.js'
 
 let appState = {}
 
@@ -17,7 +17,7 @@ function load(callback) {
     saveAllItems(appState, callback)  
   })()
 }
-  
+
 function updateItem(item, value, callback) {
   appState[item] = value
   

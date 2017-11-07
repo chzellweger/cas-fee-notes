@@ -1,5 +1,5 @@
 /* global dateFns */
-import { formatDay }  from '../lib/helpers.js'
+import { formatDay }  from '../../lib/helpers.js'
 
 export default class Note {
   constructor(item = {}) {
