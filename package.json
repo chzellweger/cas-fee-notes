@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "```bash git clone https://github.com/chzellweger/cas-fee-notes.git cd cas-fee-notes npm install ```",
   "main": "server/index.js",
+  "engines": {
+    "node": ">=8.8.1"
+  },
   "scripts": {
     "test": "babel-node spec/run.js",
     "start": "node server/index.js"
