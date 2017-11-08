@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  max-width: 480px;
+  max-width: 550px;
   height: 100%;
   margin: 0 auto;
   padding: 0;
@@ -23,6 +23,9 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.8rem;
   font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(214, 224, 230)
 }
 
 body.night  {
@@ -30,14 +33,30 @@ body.night  {
   color: wheat;
 }
 
-header {
-  padding-top: 5rem;
-  padding-bottom: 2.5rem;
+#app {
+  max-width: 550px;
+  margin: 1.5rem;
+  padding: 1rem 1rem 1rem;
+  
+  background-color: rgb(245, 247, 255);
+  box-shadow: 0px 0px 25px 10px rgba(0,0,0,0.19);
+}
+
+#app > div {
+  margin-bottom: 2rem;
   display: flex;
+  justify-content: center;
+}
+#app > div > img {
+  border-radius: 100%;
+  border: 1px solid black;
+}
+header {
+  padding: 5rem 1rem 2.5rem;display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 
-  background-color: rgba(34, 117, 165, 0.53)
+  background-color: rgb(214, 224, 230)
 }
 
 header > div {
@@ -48,7 +67,7 @@ header > div {
 }
 
 header select {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 nav {
@@ -70,15 +89,16 @@ nav label {
 
 article {
   border-bottom: 2px solid rgba(29, 29, 38, 0.05);
-  margin-bottom: 0.5rem;
-  background-color: rgba(255, 127, 80, 0.35)
+  margin: 0 1rem 2rem;
+  padding: 0.5rem 2rem;
+  background-color: white;
+  box-shadow: 0px 0px 4px 3px rgba(0,0,0,0.19);
 }
 
 article > div:first-child {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
-  border-top: 2px solid rgba(29, 29, 38, 0.05);
 }
 
 article > div:first-child > div:first-child {
@@ -92,9 +112,27 @@ article > div:last-child {
   justify-content: flex-end;
 }
 
+article a {
+  font-size: 1.4rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+
+  transition: background-color 0.5s ease;
+}
+
+article a:hover {
+  background-color: rgb(230, 230, 230)
+}
+
 summary {
   border-top: 1px solid rgba(29, 29, 38, 0.05);
-  background-color: rgba(255, 127, 80, 0.67)
+  background-color: rgb(247, 247, 247);
+  padding: 0.2rem 1rem;
+}
+
+details > p {
+  padding: 1rem 3rem;
+  background-color: rgb(247, 247, 247);
 }
 
 form > div:not(:nth-child(4)) {
