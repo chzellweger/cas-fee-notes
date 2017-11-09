@@ -58,22 +58,23 @@ body.night  {
   border: 1px solid black;
 }
 
-header {
-  padding: 5rem 1rem 2.5rem;display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  background-color: rgb(214, 224, 230)
+header.main,
+header.form {
+  padding: 5rem 1rem 2.5rem;
+  background-color: rgb(214, 224, 230);
 }
 
-header > div {
-  flex: 1 1 0%;
-
-  display: flex;
-  justify-content: center;
+header.main {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 0.2rem;
 }
 
-header select {
+header.main div:not(:nth-child(3)) {
+  text-align: center;
+}
+
+header.main select {
   font-size: 1.5rem;
 }
 
