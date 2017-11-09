@@ -63,8 +63,8 @@ const initView = () => {
     '#add': initForm,
     '#edit': initEdit
   }
-
-  views[window.location.hash]()
+  
+  views[window.location.hash] && views[window.location.hash]()
 }
 
 const initMain = () => {
