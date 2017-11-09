@@ -9,17 +9,12 @@
     <main>
       <form>
 
-        <div>
           <label for="title">Titel</label>
           <input id="title" name='title' type='text' placeholder="Ihr Titel..." required/>
-        </div>
-
-        <div>
+        
           <label for="content">Inhalt</label>
-          <textarea id="content" name='content' type='text' placeholder="Ihre Notiz..." cols=50 required/></textarea>
-        </div>
-
-        <div>
+          <textarea id="content" name='content' type='text' placeholder="Ihre Notiz..." required/></textarea>
+        
           <legend>Wichtigkeit</legend>
           <div>
             <input id="1" name='importance' type='radio' value="1" />
@@ -35,17 +30,11 @@
           </div>
         </div>
 
-        <div>
           <label for="date">Zu erledigen bis:</label>
-          <input id="due-date" name="due-date" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span>
-        </div>
-
-        <div>
+          <div><input id="due-date" name="due-date" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span></div>
+        
           <button type="submit">hinzufügen/Änderung speichern</button>
-        </div>
-
-        <div>
+        
           <button type="reset">Felder leeren</button>
-        </div>
-      </form>
+        </form>
     </main>
