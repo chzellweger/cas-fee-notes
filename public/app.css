@@ -30,7 +30,7 @@ body {
 
 body.night  {
   background-color: rgba(0, 0, 0, 0.72);
-  color: wheat;
+  color: rgb(122, 102, 64);
 }
 
 #app {
@@ -41,6 +41,10 @@ body.night  {
   
   background-color: rgb(245, 247, 255);
   box-shadow: 0px 0px 25px 10px rgba(0,0,0,0.19);
+}
+
+#app.night {
+  background-color: rgba(0, 0, 0, 0.72);
 }
 
 #app > div {
