@@ -9,7 +9,9 @@ Handlebars.registerHelper('repeat', handlebarsRepeatHelper)
 
 let views = {
   form: {},
-  main: {}
+  main: {},
+  style: '',
+  header: ''
 }
 
 let hook = ''
@@ -26,7 +28,7 @@ const getEditing = () => {
 
 const init = hookElement => {
   hook = hookElement
-  
+
   if (!window.location.hash) {
     window.location.hash = '#main'
   }
@@ -63,19 +65,21 @@ const initView = () => {
     '#add': initForm,
     '#edit': initEdit
   }
-  
+
   views[window.location.hash] && views[window.location.hash]()
 }
 
 const initMain = () => {
   const main = views.main
 
+  views.header = document.querySelector('header')
+
   main.countField = document.querySelector('#count')
   main.styleChanger = document.querySelector('#select-style')
   main.sortNotes = document.querySelector('nav > div:first-child')
   main.toggleFinished = document.querySelector('#toggle-finished')
   main.articles = document.querySelector('main')
-  
+
   handlers.setStyle()
   handlers.setCount()
   handlers.setSort()
@@ -92,13 +96,18 @@ const initMain = () => {
 const initForm = () => {
   const form = views.form
 
+  views.header = document.querySelector('header')
+
   form.title = document.querySelector('#title')
   form.content = document.querySelector('#content')
   form.importance = document.querySelectorAll('input[name=importance]')
   form.dueDate = document.querySelector('#due-date')
   form.submit = document.querySelector('button[type=submit]')
 
+  handlers.setStyle()
+
   form.submit.onclick = handlers.onSubmitForm.bind(null, 'add')
+
 }
 
 const initEdit = () => {
