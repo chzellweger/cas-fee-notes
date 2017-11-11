@@ -6,4 +6,3 @@ export default function routesParser(hash) {
     default: return '404-template'
   }
 }
-

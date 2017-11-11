@@ -60,18 +60,28 @@ body.night  {
 
 header.main,
 header.form {
-  padding: 5rem 1rem 2.5rem;
   background-color: rgb(214, 224, 230);
 }
 
+
 header.main {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-gap: 0.2rem;
+  height: 10rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-header.main div:not(:nth-child(3)) {
+header.form {
+  padding: 1rem;
+}
+
+header.main div {
   text-align: center;
+}
+
+header.main > div:last-child {
+  display: flex;
+  flex-direction: column;
 }
 
 header.main select {
