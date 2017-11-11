@@ -1,41 +1,45 @@
-
 <div>
   <img src="./assets/elephant.svg" />
 </div>
-    <header class="form">
-      <h1>Notiz hinzufügen/ bearbeiten</h1>
-      <p><a href="#main">Zurück zur Übersicht</a></p>
-    </header>
+<header class="form">
+  <h1>Notiz hinzufügen/ bearbeiten</h1>
+  <p>
+    <a href="#main">Zurück zur Übersicht</a>
+  </p>
+</header>
 
-    <main>
-      <form>
+<main>
+  <form>
 
-          <label for="title">Titel</label>
-          <input id="title" name='title' type='text' placeholder="Ihr Titel..." required/>
-        
-          <label for="content">Inhalt</label>
-          <textarea id="content" name='content' type='text' placeholder="Ihre Notiz..." required/></textarea>
-        
-          <legend>Wichtigkeit</legend>
-          <div>
-            <input id="1" name='importance' type='radio' value="1" />
-            <label for='1'>*</label>
-            <input id="2" name='importance' type='radio' value="2" />
-            <label for='2'>**</label>
-            <input id="3" name='importance' type='radio' value="3" />
-            <label for='3'>***</label>
-            <input id="4" name='importance' type='radio' value="4" />
-            <label for='4'>****</label>
-            <input id="5" name='importance' type='radio' value="5" />
-            <label for='5'>*****</label>
-          </div>
-        </div>
+    <label for="title">Titel</label>
+    <input id="title" name='title' type='text' placeholder="Ihr Titel..." required/>
 
-          <label for="date">Zu erledigen bis:</label>
-          <div><input id="due-date" name="due-date" type="date" placeholder="jjjj-mm-tt" required><span>	&#128197;</span></div>
-        
-          <button type="submit">hinzufügen/Änderung speichern</button>
-        
-          <button type="reset">Felder leeren</button>
-        </form>
-    </main>
+    <label for="content">Inhalt</label>
+    <textarea id="content" name='content' type='text' placeholder="Ihre Notiz..." required/></textarea>
+
+    <legend>Wichtigkeit</legend>
+    <div>
+      <input id="1" name='importance' type='radio' value="1" />
+      <label for='1'>*</label>
+      <input id="2" name='importance' type='radio' value="2" />
+      <label for='2'>**</label>
+      <input id="3" name='importance' type='radio' value="3" />
+      <label for='3'>***</label>
+      <input id="4" name='importance' type='radio' value="4" />
+      <label for='4'>****</label>
+      <input id="5" name='importance' type='radio' value="5" />
+      <label for='5'>*****</label>
+    </div>
+    </div>
+
+    <label for="date">Zu erledigen bis:</label>
+    <div>
+      <input id="due-date" name="due-date" type="date" placeholder="jjjj-mm-tt" required>
+      <span> &#128197;</span>
+    </div>
+
+    <button type="submit">hinzufügen/Änderung speichern</button>
+
+    <button type="reset">Felder leeren</button>
+  </form>
+</main>
