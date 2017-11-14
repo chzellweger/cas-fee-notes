@@ -2,7 +2,11 @@ import model from '../model/model.js'
 import c from './controller.js'
 
 export function setCount() {
-  const length = model.notes.get().length
+  const length = model.notes.get()
+    .filter(note => {
+      return note.getValueOfProperty('isFinished') === false
+    }).length
+  
   c.views.main.countField.innerText =
     length + ' ' + (length === 1 ? 'Notiz' : 'Notizen')
 }
@@ -78,13 +82,14 @@ export function onMarkNoteAsFinished(e) {
   if (e.target.type === 'checkbox') {
     const id = e.target.dataset.id
 
-    if(!model.state.getItem('filterItems'))
-    e.target.parentNode.parentNode.parentNode.parentNode.classList.add(
-      'fade-out'
-    )
-    
+    if (!model.state.getItem('filterItems'))
+      e.target.parentNode.parentNode.parentNode.parentNode.classList.add(
+        'fade-out'
+      )
+
     setTimeout(() => {
       model.notes.markAsFinished(id, c.render)
+      setCount()
     }, 550)
   }
 }
