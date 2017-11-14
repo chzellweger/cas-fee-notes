@@ -147,7 +147,8 @@ function _readFields() {
   let note = {
     title: c.views.form.title.value || null,
     content: c.views.form.content.value || null,
-    importance: [...c.views.form.importance].find(el => el.checked).value,
+    importance: [...c.views.form.importance].find(el => el.checked) &&
+      [...c.views.form.importance].find(el => el.checked).value || 1,
     dueDate: c.views.form.dueDate.value || null
   }
 
