@@ -10,12 +10,12 @@ export function setCount() {
 export function setStyle() {
   const style = model.state.getItem('style')
 
-  if (c.views.main.styleChanger){
+  if (c.views.main.styleChanger) {
     c.views.main.styleChanger.value = style
   }
-  
+
   c.views.header.classList.add(style)
-  
+
   c.views.style = style
 
   document.body.className = style
@@ -89,7 +89,11 @@ export function onEditNote(e) {
 
 export function onDeleteNote(e) {
   if (e.target.nodeName === 'A' && e.target.id === 'delete') {
-    model.notes.delete(e.target.dataset.id, c.render)
+    e.target.parentNode.parentNode.classList.add('fade-out')
+
+    setTimeout(() => {
+      model.notes.delete(e.target.dataset.id, c.render)
+    }, 500)
   }
 }
 
@@ -98,6 +102,14 @@ export function onSubmitForm(mode, e) {
 
   let note = _readFields()
 
+  if (!_isValid(note)) {
+    return
+  }
+
+  c.views.form.title.value = ''
+  c.views.form.content.value = ''
+  c.views.form.dueDate.value = ''
+
   if (mode === 'add') {
     model.notes.add(note)
   } else if (mode === 'edit') {
@@ -105,17 +117,39 @@ export function onSubmitForm(mode, e) {
   }
 }
 
-function _readFields() {
-  let note = {
-    title: c.views.form.title.value,
-    content: c.views.form.content.value,
-    importance: [...c.views.form.importance].find(el => el.checked).value,
-    dueDate: c.views.form.dueDate.value
+function _isValid(note) {
+  const form = c.views.form
+
+  const fields = {
+    title: form.title,
+    content: form.content,
+    importance: c.views.form.importance,
+    dueDate: form.dueDate
   }
 
-  c.views.form.title.value = ''
-  c.views.form.content.value = ''
-  c.views.form.dueDate.value = ''
+  const result = Object.keys(note).map(n => {
+    if (note[n] === null) {
+      fields[n].classList.add('error')
+      fields[n].placeholder = 'Bitte ausfüllen'
+      return false
+    }
+    
+    if(!fields[n].length) fields[n].classList.remove('error')
+    return true
+  })
+
+  const isValid = !result.includes(false)
+
+  return isValid
+}
+
+function _readFields() {
+  let note = {
+    title: c.views.form.title.value || null,
+    content: c.views.form.content.value || null,
+    importance: [...c.views.form.importance].find(el => el.checked).value,
+    dueDate: c.views.form.dueDate.value || null
+  }
 
   return note
 }
