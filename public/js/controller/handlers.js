@@ -77,7 +77,15 @@ export function onFilter(e) {
 export function onMarkNoteAsFinished(e) {
   if (e.target.type === 'checkbox') {
     const id = e.target.dataset.id
-    model.notes.markAsFinished(id, c.render)
+
+    if(!model.state.getItem('filterItems'))
+    e.target.parentNode.parentNode.parentNode.parentNode.classList.add(
+      'fade-out'
+    )
+    
+    setTimeout(() => {
+      model.notes.markAsFinished(id, c.render)
+    }, 550)
   }
 }
 
@@ -93,7 +101,7 @@ export function onDeleteNote(e) {
 
     setTimeout(() => {
       model.notes.delete(e.target.dataset.id, c.render)
-    }, 500)
+    }, 550)
   }
 }
 
@@ -133,8 +141,8 @@ function _isValid(note) {
       fields[n].placeholder = 'Bitte ausfüllen'
       return false
     }
-    
-    if(!fields[n].length) fields[n].classList.remove('error')
+
+    if (!fields[n].length) fields[n].classList.remove('error')
     return true
   })
 
@@ -147,8 +155,10 @@ function _readFields() {
   let note = {
     title: c.views.form.title.value || null,
     content: c.views.form.content.value || null,
-    importance: [...c.views.form.importance].find(el => el.checked) &&
-      [...c.views.form.importance].find(el => el.checked).value || 1,
+    importance:
+      ([...c.views.form.importance].find(el => el.checked) &&
+        [...c.views.form.importance].find(el => el.checked).value) ||
+      1,
     dueDate: c.views.form.dueDate.value || null
   }
 
