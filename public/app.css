@@ -97,6 +97,7 @@ header.main div {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex: 1;
 }
 
 header.main div > div:last-child {
