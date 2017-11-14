@@ -2,11 +2,10 @@ import model from '../model/model.js'
 import c from './controller.js'
 
 export function setCount() {
-  const length = model.notes.get()
-    .filter(note => {
-      return note.getValueOfProperty('isFinished') === false
-    }).length
-  
+  const length = model.notes.get().filter(note => {
+    return note.getValueOfProperty('isFinished') === false
+  }).length
+
   c.views.main.countField.innerText =
     length + ' ' + (length === 1 ? 'Notiz' : 'Notizen')
 }
