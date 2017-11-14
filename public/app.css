@@ -33,7 +33,7 @@ body.night  {
   background-attachment: fixed;
 }
 
-img:hover {
+div > img:hover {
   animation-name: wiggle;
   animation-duration: 500ms;
   animation-iteration-count: 1;
@@ -76,7 +76,15 @@ header {
   padding: 1rem;
 }
 
-header.night,
+@media only screen and (max-width: 510px) {
+  header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 25rem;
+  }
+}
+
 header.night {
   background: linear-gradient(130deg, #e1eec3,#f05053);
 }
