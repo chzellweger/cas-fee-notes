@@ -87,8 +87,8 @@ export function onMarkNoteAsFinished(e) {
       )
 
     setTimeout(() => {
-      model.notes.markAsFinished(id, c.render)
       setCount()
+      model.notes.markAsFinished(id, c.render)
     }, 550)
   }
 }
