@@ -61,8 +61,7 @@
         <span>zu erledigen bis {{ literalDueDate }} {{ prettyDueDate }}</span>
         <label>
           <input data-id="{{ id }}" name="finish" type="checkbox" {{#if isFinished}}checked{{/if}}>
-          <span>erledigt
-            <span></span>
+          <span>erledigt</span>{{#if isFinished}}<span> {{ prettyDueDate }}</span>{{/if}}
         </label>
       </div>
       <div>
