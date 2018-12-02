@@ -38,6 +38,6 @@
     "eslint-plugin-standard": "^3.0.1",
     "jasmine": "^2.8.0",
     "prettier": "^1.7.4",
-    "serve": "^6.1.0"
+    "serve": "^10.1.1"
   }
 }
